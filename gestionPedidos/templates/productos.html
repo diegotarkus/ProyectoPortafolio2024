@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Lista de productos{% endblock %}
+
+{% block first_content%} {% endblock %}
+
+{% block second_content %}
+
+<div class="container-fluid my-2">
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Imagen</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in productos %}
+                <tr>
+                    <td>{{p.id_producto}}</td>
+                    <td>{{p.nombre}}</td>
+                    <td>{{p.precio}}</td>
+                    <td>
+                        {% if p.imagen %}
+                        <img src="{{p.imagen.url}}" alt="{{p.nombre}}" width="150" height="100">
+                        {% else%}
+                        <img src="{% static 'gestionPedidos/img/image_not_found.jpg' %}" alt="INF">
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div> 
+
+{% endblock%}
