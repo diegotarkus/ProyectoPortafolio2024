@@ -4,7 +4,41 @@
 
 {% block title %}Lista de productos{% endblock %}
 
-{% block first_content%} {% endblock %}
+{% block first_content%} 
+<div class="container my-1">
+    <div class="row">
+        {% if 'OK' in request.GET %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Información <strong>ingresada</strong> satisfactoriamente.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+        {% if 'FAIL' in request.GET %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Se ha producido un error.</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+        {% if 'NO_EXISTS' in request.GET %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Producto no encontrado.</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+        {% if 'UPDATED' in request.GET %}
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            Información <strong>actualizada</strong> satisfactoriamente.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+        {% if 'DELETED' in request.GET %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            Información <strong>eliminada</strong> satisfactoriamente.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+    </div>
+</div>{% endblock %}
 
 {% block second_content %}
 
@@ -33,6 +67,18 @@
                         {% else%}
                         <img src="{% static 'img/image_not_found.jpg' %}" alt="INF">
                         {% endif %}
+                    </td>
+                    <td>
+                        <a class="text-decoration-none" href="{% url 'producto_editar' id_producto=p.id_producto %}">
+                            <span class="text-warning fs-2">
+                                <i class="fa-solid fa-pencil"></i>
+                            </span>
+                        </a>
+                        <a class="text-decoration-none" href="{% url 'producto_borrar' id_producto=p.id_producto %}">
+                            <span class="text-danger fs-2">
+                                <i class="fa-solid fa-trash"></i>
+                            </span>
+                        </a>
                     </td>
                 </tr>
                 {% endfor %}

@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title%}Añadir producto{% endblock %}
+{% load static %}
 
-{%block first_content %} {% endblock %}
+{% block title%} Editar producto {% endblock %}
 
 {% block second_content %}
 <div class="container my-2 py-3 text-dark text-center rounded">
-    <h1>Agregando información de producto</h1>
+    <h1>Editando información de producto</h1>
 </div>
+
 <div class="container my-2 p-5">
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -19,7 +20,7 @@
         </div>
 
         <div class="form-group mb-3">
-            <label for="nombre" class="fw-bold">Nombre:</label>
+            <label for="nombre" class="fw-bold">ID:</label>
             <div class="input-group">
                 {{form.nombre}}
             </div>
@@ -40,7 +41,7 @@
         </div>
 
         <div class="form-group mb-3">
-            <label for="imagen" class="fw-bold">Imagen</label>
+            <label for="imagen" class="fw-bold">Imagen:</label>
             <div class="input-group">
                 {{form.imagen}}
             </div>
@@ -52,7 +53,7 @@
         </div>
 
         <div class="text-center my-4">
-            <input type="submit" class="btn btn-primary m-2" id="registrar" value="Guardar">
+            <input type="submit" class="btn btn-primary m-2" id="actualizar" value="Actualizar">
             <input type="reset" class="btn btn-danger m-2" id="limpiar" value="Cancelar">
         </div>
     </form>
