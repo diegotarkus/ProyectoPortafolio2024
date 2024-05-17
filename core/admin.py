@@ -4,7 +4,7 @@ from core.models import Cliente, Pedido, Descuento, Estado
 # Register your models here.
 
 class ClienteAdmin(admin.ModelAdmin):
-    list_display=("nombre", "apellido", "correo")
+    list_display=("rut", "nombre", "apellido", "correo")
     search_fields=("correo", "nombre")
 
 class PedidoAdmin(admin.ModelAdmin):

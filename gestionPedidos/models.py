@@ -7,8 +7,9 @@ from django.db import models
 
 
 class Producto(models.Model):
-    id_producto=models.IntegerField(primary_key=True, verbose_name='id_producto')
+    id_producto=models.CharField(primary_key=True, verbose_name='id_producto')
     nombre=models.CharField(max_length=20, verbose_name='nombre')
+    descripcion=models.CharField(max_length=500, verbose_name='descripcion', null=True, blank=True)
     precio=models.IntegerField(verbose_name='precio')
     imagen=models.ImageField(verbose_name='imagen', upload_to='productos', null=True, blank=True)
 

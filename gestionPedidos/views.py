@@ -11,16 +11,20 @@ def producto_nuevo(request):
         if form.is_valid():
             id_producto = form.cleaned_data.get('id_producto')
             nombre = form.cleaned_data.get('nombre')
+            descripcion = form.cleaned_data.get('descripcion')
             precio = form.cleaned_data.get('precio')
             imagen = form.cleaned_data.get('imagen')
             obj = Producto.objects.create(
                 id_producto = id_producto,
                 nombre = nombre,
+                descripcion = descripcion,
                 precio = precio,
                 imagen = imagen
             )
             obj.save()
-            return redirect (reverse('producto_nuevo/'))
+            return redirect (reverse('productos'))
+        else:
+            return redirect (reverse('home'))
     else:
         form = ProductoList    
     return render(request, "producto_nuevo.html", {'form' : form})

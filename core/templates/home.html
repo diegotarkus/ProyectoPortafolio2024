@@ -1,14 +1,57 @@
 {% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Hola</h1>
-</body>
-</html>
+{% load static %}
 
+{% block title %}EL Restaurant{% endblock %}
+
+{% block first_content %}
+
+<div class="container my-1">
+    <div class="row">
+        {% if 'OK' in request.GET %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Usuario <strong>registrado</strong> satisfactoriamente. Por favor, identificate.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        {% endif %}
+        </div>
+    </div>
+</div>
+
+<h1><a href='crear_user'>Registrate</a></h1>
+
+{% endblock %}
+
+{% block second_content %}
+
+<body>
+    <section class="container my-4 bg-secondary">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for p in productos %}
+            <div class="col"> 
+                <div class="card h-80">               
+                    <div class="card card-img-top" style="width: 15rem;">
+                        {% if p.imagen %}
+                        <img class="img-afiche"  src="{{p.imagen.url}}" class="card-img-top p-2" alt="{{p.nombre}}">
+                        {% else %}
+                        <img src="{% static 'img/image_not_found.jpg' %}" class="card-img-top" alt="Image not found">
+                        {% endif %}
+                        <div class="card-body">
+                            <p class="card-text text-muted">cod: {{p.id_producto}}</p>
+                            <p class="card-title fw-bold">{{p.nombre}}</p>
+                            <p class="card-text">{{p.descripcion}}</p>
+                            <p class="card-text">Valor: {{p.precio}}</p>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a class="btn btn-primary" href="">
+                                <i class="fa-solid fa-info">Añadir a carro</i>
+                            </a>
+                        </div>
+                    </div>                
+                </div>                
+            </div>
+            {% endfor %}
+        </div>    
+    </section>
+</body>
+
+{% endblock %}
