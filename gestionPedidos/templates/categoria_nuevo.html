@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title%} Agregar categoría {% endblock %}
+
+{% block first_content%} {%endblock%}
+
+{% block second_content%}
+<div class="container my-2 py-3 text-dark text-center rounded">
+    <h1>Agregar categoría</h1>
+</div>
+
+<div class="container my-2 p-5">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group mb-3">
+            <label for="nombre" class="fw-bold">Categoría:</label>
+            <div class="input-group">
+                {{form.nombre}}
+            </div>
+        </div>
+        <div class="text-center my-4">
+            <input type="submit" class="btn btn-primary m-2" id="registrar" value="Guardar">
+            <a href="/gestionPedidos/productos" class="btn btn-danger m-2">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+{%endblock%}

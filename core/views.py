@@ -1,8 +1,14 @@
-from django.shortcuts import render, HttpResponse, redirect, reverse
+from django.shortcuts import render, HttpResponse, redirect, reverse, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.forms import UserCreationForm
+from guest_user.decorators import allow_guest_user
+from django.db.models import Q
 from .models import *
-from gestionPedidos.models import Producto
+from gestionPedidos.models import Producto, Categoria
 from .forms import *
+from carro.forms import anadirProductoForm
 import bcrypt
 
 # Create your views here.
@@ -14,73 +20,41 @@ def home(request):
     context = {'productos': Producto.objects.all()}
     return render(request, "home.html", context)
 
-def crear_user(request):
+def lista_categoria(request, id):
+    busqueda = request.POST.get("buscador")
+    lista_productos = Producto.objects.filter(categoria=id)
+    
+    if busqueda:
+        lista_productos = Producto.objects.filter(
+            Q(nombre__icontains=busqueda),
+            Q(descripcion__icontains=busqueda)
+        ).distinct()
+    
+    context = {'lista_productos' : lista_productos}
+    return render(request, 'home', context)
+
+@allow_guest_user
+def detalle_producto(request, id_producto):
+    producto = get_object_or_404(Producto, id_producto=id_producto)
+    form = anadirProductoForm()
+    return render(request, 'productos/detalle_producto.html', {'producto': producto, 'form': form})
+    
+def registrar(request):
+    data = {'form' : RegistroForm()}
     if request.method == 'POST':
-        errors = Cliente.objects.validador(request.POST)
-
-        if len(errors) > 0:
-            for key, value in errors.items():
-                messages.error(request,value)
-                request.session['registro_nombre'] = request.POST['nombre']
-                request.session['registro_apellido'] = request.POST['apellido']
-                request.session['registro_email'] = request.POST['correo']
-                request.session['level_mensaje'] = 'alert-danger'
-
+        formulario = RegistroForm(data = request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            user = authenticate(usermame = formulario.cleaned_data['username'], password = formulario.cleaned_data['password1'])
+            if user is not None:
+                login(request, user)
+            messages.success(request, 'Usuario registrado satisfactoriamente.')
+            return redirect('/')
         else:
-            request.session['registro_nombre'] = ""
-            request.session['registro_apellido'] = ""
-            request.session['registro_email'] = ""
-            
-            rut = request.POST['rut']
-            nombre = request.POST['nombre']
-            apellido = request.POST['apellido']
-            correo = request.POST['correo']
-            telefono = request.POST['telefono']
-            direccion = request.POST['direccion']
-            password = request.POST['password']
-            password_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
-            
-            obj = Cliente.objects.create(
-                rut=rut,
-                nombre=nombre, 
-                apellido=apellido,
-                correo=correo,
-                telefono=telefono,
-                direccion=direccion,
-                password_decode=password,
-                password=password_hash
-            )
-            obj.save()
-            messages.success(request, "Usuario registrado.")
-            request.session['level_mensaje'] = 'alert-success'
-            
-            return redirect(reverse('home')+ '?OK')
-        
-    return render(request,'crear_user.html')
+            data['form'] = formulario
+    return render(request, 'auth/registrar.html', data)
+
     
-
-def busqueda_productos(request):
-    return render(request, "busqueda_productos.html")
-
-def buscar(request):
-
-    if request.GET["prd"]:
-        #mensaje="Artículo buscado: %r" %request.GET["prd"]
-        prdcto=request.GET["prd"]
-
-        if len(prdcto)>20:
-            mensaje="Texto de búsqueda demasiado largo"
-        else:
-
-            producto=Producto.objects.filter(nombre__icontains=prdcto)
-            return render(request, "resultados_busqueda.html", {"producto":producto, "query":producto})
-    
-    else:
-        mensaje="No has introducido nada"
-
-    return HttpResponse(mensaje)
-
-def contacto(request):
-    if request.method=="POST":
-        return render(request, "gracias.html")
-    return render(request, "contacto.html")
+def exit(request):
+    logout(request)
+    return redirect('home')

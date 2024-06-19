@@ -19,14 +19,67 @@
 
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark text-white">
     <div class="container">
-        <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-            <ul class="navbar-nav">
+            <ul class="navbar-nav">                    
+                {% if user.is_authenticated %}
+                    <div class="d-flex">
+                        <a href="{% url 'carro:detalle_carro' %}" class="btn btn-outline-light">Carritooo</a>
+                    </div>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">
+                            <b>Bienvenido, {{ user.username }}</b>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">
+                                    Cerrar Sesión
+                            </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/login">
+                            Ingresar
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/registrar">
+                            Registrar
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% if user.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/gestionPedidos/productos">
+                                Listado Productos
+                            </a>
+                    </li>
+                {% endif %}
+
+                <div class="dropdown show">
+                    <a class="nav-link dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Categorias
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        {% for c in lista_categorias %}
+                        <a class="dropdown-item">{{c.nombre}}</a> 
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      CATE
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Chau</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Separated link</a>
+                    </div>
+                </div>
+            
                 <li class="nav-item border-md-right">
                     <a>Holaaaaaaa</a>
-
                 </li>
             </ul>
         </div>
@@ -77,7 +130,8 @@
 </body>
 
 <script src="{%static 'js/jquery-3.6.4.min.js' %}"></script>
-<script src="{%static 'js/bootstrap.min.js' %}"></script>
 <script src="{%static 'js/popper.min.js' %}"></script>
+<script src="{%static 'js/bootstrap.min.js' %}"></script>
+<script src="{%static 'js/carroCompras.js' %}"></script>
 
 </html>

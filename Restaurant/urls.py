@@ -17,11 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path("convert/", include("guest_user.urls")),
+    
     path('', include('core.urls')),
-    path('gestionPedidos/', include('gestionPedidos.urls'))    
+    path('carro/', include('carro.urls'), name='carro'),
+    path('gestionPedidos/', include('gestionPedidos.urls')),
+    path('ordenes/', include('ordenes.urls'))   
 ]
 
 if settings.DEBUG:

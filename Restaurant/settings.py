@@ -26,6 +26,9 @@ SECRET_KEY = 'django-insecure--00q4rf!qw!diksxmf0)q_50ayjfln4#d8&j22am@h3y+fu*c%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
 ALLOWED_HOSTS = []
 
 
@@ -38,8 +41,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
+    'psycopg2',
+    'guest_user',
+    'crispy_forms',
+    'crispy_bootstrap4',
+    'django_bootstrap_icons',
     'core',
-    'gestionPedidos'
+    'gestionPedidos',
+    'carro',
+    'ordenes'
+]
+
+AUTHENTICATION_BACKENDS = [
+   "django.contrib.auth.backends.ModelBackend",
+   "guest_user.backends.GuestBackend",
 ]
 
 MIDDLEWARE = [
@@ -65,6 +81,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'carro.context_processors.carro',
+                'carro.context_processors.importe_total_carro',
+                'carro.context_processors.extras'
             ],
         },
     },
@@ -79,7 +98,7 @@ WSGI_APPLICATION = 'Restaurant.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'retaurant',
+        'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'admin',
         'HOST': 'localhost',
@@ -110,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'America/Santiago'
 
@@ -128,7 +147,13 @@ STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,"media")
 
+CARRO_SESSION_ID = 'carro'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+

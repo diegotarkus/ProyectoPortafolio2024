@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Gracias por tu compra.
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row" style="margin-top: 6%">
+            <div class="col-md-8 col-md-offset-2">
+                <h3 class="page-header">Gracias por tu compra.
+                </h3>
+                <p>Tu compra se ha realizado satisfactoriamente. El número de tu orden es <strong>{{ orden.id }}</strong>.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

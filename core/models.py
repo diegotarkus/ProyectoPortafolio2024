@@ -1,7 +1,8 @@
 from django.db import models
 import re
+from django.contrib.auth import get_user_model
 
-# Create your models here.
+User = get_user_model()
 class UserManager(models.Manager):
     def validador(self, postData):
         EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
@@ -32,44 +33,13 @@ class UserManager(models.Manager):
             errors['password_confirm'] = "Contraseñas no coinciden"
 
         return errors
-class Cliente(models.Model):
-    rut=models.CharField(primary_key=True, max_length=10, verbose_name="RUT")
-    nombre=models.CharField(max_length=15, verbose_name="nombre")
-    apellido=models.CharField(max_length=15, verbose_name="apellido")
+class Contacto(models.Model):
+    nombre=models.CharField(max_length=30, verbose_name="nombre")
+    apellido=models.CharField(max_length=30, verbose_name="apellido")
     correo=models.EmailField(verbose_name="correo")
-    telefono=models.CharField(max_length=9, verbose_name="telefono")
-    direccion=models.CharField(max_length=20, verbose_name="direccion")
-    password = models.CharField(verbose_name='password', max_length=500, default='nopass')
-    password_decode = models.CharField(verbose_name='Password_Hash', max_length=500)
-    rol = models.CharField(verbose_name='rol', max_length=20, default='USER')
+    mensaje = models.CharField(verbose_name='mensaje', max_length=500)
     creado = models.DateTimeField(verbose_name='creado', auto_now_add=True, null=True, blank=True)
-    objects = UserManager()
 
     def __str__(self):
-        return (self.rut)
+        return (self.crado)
     
-class Pedido(models.Model):
-    id_pedido=models.AutoField(primary_key=True)
-    nombre=models.CharField(max_length=20)
-    precio=models.IntegerField()
-    nota=models.CharField(max_length=255, blank=True, null=True)
-    estado=models.CharField(max_length=255, null=True)
-
-    def __str__(self):
-        return (self.id_pedido)
-    
-####    Clase que se utilizará para poder aplicar descuentos en los pedidos    ####
-class Descuento(models.Model):
-    id_descuento=models.IntegerField(primary_key=True)
-    descripcion=models.CharField(max_length=255, verbose_name="Descripción")
-
-    def __str__(self):
-        return (self.id_descuento)
-
-####    Clase que se utilizará para verificar el estado de un producto (recibido, proceso, reparto y entregado)    ####
-class Estado(models.Model):
-    id_estado=models.IntegerField(primary_key=True)
-    descripcion=models.CharField(max_length=255)
-
-    def __str__(self):
-        return (self.id_estado)

@@ -5,6 +5,29 @@
 {% block title %}Lista de productos{% endblock %}
 
 {% block first_content%} 
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark text-white">
+    <div class="container">
+        <ul class="navbar-nav">                    
+            {% if user.is_staff %}
+                <li>
+                    <div class="d-flex">
+                        <a href="/gestionPedidos/producto_nuevo" class="btn btn-outline-light">Agregar Producto</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="d-flex">
+                        <a href="/gestionPedidos/categoria_nuevo" class="btn btn-outline-light">Agregar Categoría</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="d-flex">
+                        <a href="/ordenes/admin/ordenlist" class="btn btn-outline-light">Ordenes</a>
+                    </div>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>            
 <div class="container my-1">
     <div class="row">
         {% if 'OK' in request.GET %}
@@ -52,6 +75,7 @@
                     <th>Descripción</th>
                     <th>Precio</th>
                     <th>Imagen</th>
+                    <th>Categoría</th>
                 </tr>
             </thead>
             <tbody>
@@ -68,6 +92,7 @@
                         <img src="{% static 'img/image_not_found.jpg' %}" alt="INF">
                         {% endif %}
                     </td>
+                    <td>{{p.categoria}}</td>
                     <td>
                         <a class="text-decoration-none" href="{% url 'producto_editar' id_producto=p.id_producto %}">
                             <span class="text-warning fs-2">

@@ -40,11 +40,22 @@
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-                <ul class="navbar-nav">
+                <ul class="navbar-nav">                    
+                    {% if user.is_authenticated %}
+                    <div class="d-flex">
+                        <a href="{% url 'carro:detalle_carro' %}" class="btn btn-outline-dark">Carritooo</a>
+                    </div>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">
+                            <b>{{ user.username }}</b>
+                        </a>
+                    </li>
+                    <li>
+                        
+                    </li>
                     <li class="nav-item border-md-right">
                         <a>Hola</a>
-
-                    </li>
+                    </li>                        
                 </ul>
             </div>
         </div>

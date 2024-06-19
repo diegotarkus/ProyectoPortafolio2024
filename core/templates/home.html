@@ -19,6 +19,8 @@
 
 <h1><a href='crear_user'>Registrate</a></h1>
 
+
+
 {% endblock %}
 
 {% block second_content %}
@@ -27,24 +29,24 @@
     <section class="container my-4 bg-secondary">
         <div class="row row-cols-1 row-cols-md-3 g-4">
             {% for p in productos %}
-            <div class="col"> 
-                <div class="card h-80">               
-                    <div class="card card-img-top" style="width: 15rem;">
+            <div class="col mx-auto"> 
+                <div class="card h-80 container-items">               
+                    <div class="card card-img-top item" style="width: 15rem;">
                         {% if p.imagen %}
-                        <img class="img-afiche"  src="{{p.imagen.url}}" class="card-img-top p-2" alt="{{p.nombre}}">
+                            <img class="img-afiche"  src="{{p.imagen.url}}" class="card-img-top p-2" alt="{{p.nombre}}">
                         {% else %}
-                        <img src="{% static 'img/image_not_found.jpg' %}" class="card-img-top" alt="Image not found">
+                            <img src="{% static 'img/image_not_found.jpg' %}" class="card-img-top" alt="not found">
                         {% endif %}
-                        <div class="card-body">
+                        <div class="card-body producto-info">
                             <p class="card-text text-muted">cod: {{p.id_producto}}</p>
-                            <p class="card-title fw-bold">{{p.nombre}}</p>
+                            <a href="{{ p.get_absolute_url }}" style="display:block">
+                                {{ p.nombre }}
+                              </a>
                             <p class="card-text">{{p.descripcion}}</p>
                             <p class="card-text">Valor: {{p.precio}}</p>
                         </div>
                         <div class="card-footer text-center">
-                            <a class="btn btn-primary" href="">
-                                <i class="fa-solid fa-info">Añadir a carro</i>
-                            </a>
+
                         </div>
                     </div>                
                 </div>                

@@ -1,10 +1,28 @@
 from django.shortcuts import render, HttpResponse, redirect, reverse
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponse
-from gestionPedidos.models import Producto
+from gestionPedidos.models import Producto, Categoria
 from .forms import *
 
-# Create your views here.
+@staff_member_required
+def categoria_nuevo(request):
+    if request.method == 'POST':
+        form = CategoriaList(request.POST, request.FILES)
+        if form.is_valid():
+            nombre = form.cleaned_data.get('nombre')
+            obj = Categoria.objects.create(
+                nombre = nombre
+            )
+            obj.save()
+            return redirect(reverse('productos'))
+        else:
+            return redirect(reverse('home'))
+    else:
+        form = CategoriaList
+    return render(request, 'categoria_nuevo.html', {'form' : form})
 
+@staff_member_required
 def producto_nuevo(request):
     if request.method == 'POST' :
         form = ProductoList(request.POST, request.FILES)
@@ -14,12 +32,14 @@ def producto_nuevo(request):
             descripcion = form.cleaned_data.get('descripcion')
             precio = form.cleaned_data.get('precio')
             imagen = form.cleaned_data.get('imagen')
+            categoria = form.cleaned_data.get('categoria')
             obj = Producto.objects.create(
                 id_producto = id_producto,
                 nombre = nombre,
                 descripcion = descripcion,
                 precio = precio,
-                imagen = imagen
+                imagen = imagen,
+                categoria = categoria
             )
             obj.save()
             return redirect (reverse('productos'))
@@ -29,6 +49,7 @@ def producto_nuevo(request):
         form = ProductoList    
     return render(request, "producto_nuevo.html", {'form' : form})
 
+@staff_member_required
 def producto_editar(request, id_producto):
     try:
         producto = Producto.objects.get(id_producto = id_producto)
@@ -47,6 +68,7 @@ def producto_editar(request, id_producto):
     except:
         return redirect(reverse('productos') + '?NO_EXISTS')
     
+@staff_member_required   
 def producto_borrar(request, id_producto):
     try:
         producto = Producto.objects.get(id_producto = id_producto)
@@ -55,6 +77,7 @@ def producto_borrar(request, id_producto):
     except:
         return redirect(reverse('productos') + '?FAIL')
 
+@staff_member_required
 def lista_productos(request):
     context = {'productos': Producto.objects.all()}
-    return render(request,'productos.html',context)
+    return render(request,'productos.html', context)
