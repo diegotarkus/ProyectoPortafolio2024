@@ -2,58 +2,66 @@
 
 {% load static %}
 
-{% block title %}EL Restaurant{% endblock %}
-
-{% block first_content %}
-
-<div class="container my-1">
-    <div class="row">
-        {% if 'OK' in request.GET %}
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            Usuario <strong>registrado</strong> satisfactoriamente. Por favor, identificate.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        {% endif %}
-        </div>
-    </div>
-</div>
-
-<h1><a href='crear_user'>Registrate</a></h1>
-
-
-
+{% block title %}
+  Inicio
 {% endblock %}
 
+<!-- Carousel -->
+{% block first_content %}
+  <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="2000">
+        <img src="{% static 'img/layout-banner.png' %}" class="d-block w-100" />
+      </div>
+      <div class="carousel-item" data-bs-interval="2000">
+        <img src="{% static 'img/layout-banner.png' %}" class="d-block w-100" />
+      </div>
+      <div class="carousel-item" data-bs-interval="2000">
+        <img src="{% static 'img/layout-banner.png' %}" class="d-block w-100" />
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+{% endblock %}
+
+<!-- Contenedor Principal -->
 {% block second_content %}
-
-<body>
-    <section class="container my-4 bg-secondary">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            {% for p in productos %}
-            <div class="col mx-auto"> 
-                <div class="card h-80 container-items">               
-                    <div class="card card-img-top item" style="width: 15rem;">
-                        {% if p.imagen %}
-                            <img class="img-afiche"  src="{{p.imagen.url}}" class="card-img-top p-2" alt="{{p.nombre}}">
-                        {% else %}
-                            <img src="{% static 'img/image_not_found.jpg' %}" class="card-img-top" alt="not found">
-                        {% endif %}
-                        <div class="card-body producto-info">
-                            <p class="card-text text-muted">cod: {{p.id_producto}}</p>
-                            <a href="{{ p.get_absolute_url }}" style="display:block">
-                                {{ p.nombre }}
-                              </a>
-                            <p class="card-text">{{p.descripcion}}</p>
-                            <p class="card-text">Valor: {{p.precio}}</p>
-                        </div>
-                        <div class="card-footer text-center">
-
-                        </div>
-                    </div>                
-                </div>                
+  <main class="main-home">
+    <h1>Menú</h1>
+    <section class="container">
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for p in productos %}
+          <div class="col mx-auto">
+            <div class="card container-items">
+              <div class="card card-img-top item">
+                {% if p.imagen %}
+                  <img class="img-afiche" src="{{ p.imagen.url }}" class="card-img-top p-2" alt="{{ p.nombre }}" />
+                {% else %}
+                  <img src="{% static 'img/image_not_found.jpg' %}" class="card-img-top" alt="not found" />
+                {% endif %}
+                <div class="card-body producto-info">
+                  <p class="card-text text-muted">cod: {{ p.id_producto }}</p>
+                  <p href="">{{ p.nombre }}</p>
+                  <p class="card-text">{{ p.descripcion }}</p>
+                  {% load humanize %}
+                  <p class="card-text card-text-precio">Precio: ${{ p.precio|intcomma }}</p>
+                  <div class="agregar">
+                    <a href="{{ p.get_absolute_url }}"><button class="boton-agregar">Ver</button></a>
+                  </div>
+                </div>
+                <div></div>
+              </div>
             </div>
-            {% endfor %}
-        </div>    
+          </div>
+        {% endfor %}
+      </div>
     </section>
-</body>
-
+  </main>
 {% endblock %}

@@ -33,7 +33,7 @@ def lista_categoria(request, id):
     context = {'lista_productos' : lista_productos}
     return render(request, 'home', context)
 
-@allow_guest_user
+
 def detalle_producto(request, id_producto):
     producto = get_object_or_404(Producto, id_producto=id_producto)
     form = anadirProductoForm()

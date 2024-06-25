@@ -1,39 +1,44 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% load static %}
 
-{% block title %}Checkout{% endblock %}
+{% block title %}
+  Checkout
+{% endblock %}
 
-{% block first_content%}{%endblock%}
+{% block first_content %}
+
+{% endblock %}
 
 {% block second_content %}
-    <div class="container">
-        <div class="row" style="margin-top: 6%">
-            <div class="col-md-8">
-                <h4 class="page-header">Checkout</h4>
-                <form action="." method="post">
-                    {% csrf_token %}
-                    {{ form }}
-                    <input type="submit" class="btn btn-primary" value="Ordenar">
-                </form>
-            </div>
-            <div class="col-md-4">
-                <div class="page-header">
-                    Tu pedido:
-                </div>
-                <ul class="list-group">
-                    {% load humanize %}
-                    {% for item in carro %}
-                        <li class="list-group-item">
-                        {{ item.cantidad }} x {{ item.producto.nombre }}
-                        <span>$ {{ item.precio | intcomma}}</span>
-                        </li>
-                    {% endfor %}
-
-                <li class="list-group-item active">Total: $ {{ importe_total_carro | intcomma}}</li>
-                </ul>
-
-            </div>
+  <div class="container-checkout">
+    <div class="checkout-datos">
+      <div class="checkout-title">
+        <h2>Checkout</h2>
+      </div>
+      <form class="checkout-form" action="." method="post">
+        {% csrf_token %}
+        {{ form }}
+        <div class="checkout-ordenar-button">
+          <input type="submit" value="Ordenar" />
         </div>
+      </form>
     </div>
+    <div class="checkout-resumen">
+      <div class="checkout-resumen-title">
+        <h6>Tu pedido</h6>
+      </div>
+      <ul class="list-group">
+        {% load humanize %}
+        {% for item in carro %}
+          <li class="list-group-item">
+            {{ item.cantidad }} x {{ item.producto.nombre }}
+            <span>$ {{ item.precio|intcomma }}</span>
+          </li>
+        {% endfor %}
+
+        <li class="list-group-item active">Total: $ {{ importe_total_carro|intcomma }}</li>
+      </ul>
+    </div>
+  </div>
 {% endblock %}

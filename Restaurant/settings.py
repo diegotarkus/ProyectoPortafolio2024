@@ -54,8 +54,8 @@ INSTALLED_APPS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-   "django.contrib.auth.backends.ModelBackend",
-   "guest_user.backends.GuestBackend",
+    "django.contrib.auth.backends.ModelBackend",
+    "guest_user.backends.GuestBackend",
 ]
 
 MIDDLEWARE = [
@@ -129,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'es-CL'
 
 TIME_ZONE = 'America/Santiago'
 
