@@ -18,21 +18,21 @@ const carroVacio = document.querySelector('.carro-vacio');
 const carroTotal = document.querySelector('.carro-total');
 
 productosLista.addEventListener('click', e => {
-    if (e.target.classList.contains('btn-anadir-productos')){
+    if (e.target.classList.contains('btn-anadir-productos')) {
         const producto = e.target.parentElement;
 
         const productoInfo = {
-            cantidad : 1,
-            nombre : producto.querySelector('h2').textContent,
-            nombre2 : JSON.parse(nombre),
-            precio : producto.querySelector('p').textContent,
+            cantidad: 1,
+            nombre: producto.querySelector('h2').textContent,
+            nombre2: JSON.parse(nombre),
+            precio: producto.querySelector('p').textContent,
         };
 
         const exits = allProducts.some(producto => producto.nombre === productoInfo.nombre);
 
-        if (exits){
+        if (exits) {
             const productos = allProducts.map(producto => {
-                if (producto.nombre === productoInfo.nombre){
+                if (producto.nombre === productoInfo.nombre) {
                     producto.cantidad++;
                     return producto
                 } else {
@@ -51,7 +51,7 @@ productosLista.addEventListener('click', e => {
 });
 
 rowProducto.addEventListener('click', e => {
-    if (e.target.classList.contains('icon-close')){
+    if (e.target.classList.contains('icon-close')) {
         const producto = e.target.parentElement;
         const nombre = producto.querySelector('p').textContent;
 

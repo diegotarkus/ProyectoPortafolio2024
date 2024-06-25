@@ -5,40 +5,36 @@
   {{ producto.nombre }}
 {% endblock %}
 
-{% block first_content %}{% endblock %}
+{% block first_content %}
+
+{% endblock %}
 {% block second_content %}
-  <div class="row">
-    <div class="col-md-4">
-        {% if producto.imagen %}
-            <img class="img-fluid" src="{{ producto.imagen.url }}" alt="{{producto.nombre}}">
-          {% else %}
-            <img src="{% static 'img/image_not_found.jpg' %}" class="card-img-top" alt="not found">
-        {% endif %}
+  <div class="productos-contenedor">
+    <div class="productos-imagen">
+      {% if producto.imagen %}
+        <img class="img-fluid" src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" />
+      {% else %}
+        <img src="{% static 'img/image_not_found.jpg' %}" class="card-img-top" alt="not found" />
+      {% endif %}
     </div>
+    <article class="productos-article">
+      <h2>{{ producto.nombre }}</h2>
 
-    <div class="col-md-8">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <h3>{{ producto.nombre }}</h3>
-          <p>
-            <a href={{ producto.categoria.get_absolute_url }}>
-              {{ producto.categoria }}
-            </a>
-          </p>
-          {% load humanize %}
-
-          <p style="font-size:20px;color:#d9534f">$ {{ producto.precio | intcomma}}</p>
-
-          <div style="margin-top:20px;">
-            {{ producto.descripcion|linebreaks }}
-          </div>
-
-          <form action="{% url 'carro:carro_mas' producto.id_producto %}" method="post">
-            {% csrf_token %}
-            <input class="btn btn-primary" type="submit" value="Añade al carro">
-          </form>
-        </div>
+      <div class="productos-categoria">
+        <a href="{{ producto.categoria.get_absolute_url }}">{{ producto.categoria }}</a>
       </div>
-    </div>
+      <div class="productos-article-descripcion">
+        <span>Descripción:</span>{{ producto.descripcion|linebreaks }}
+      </div>
+      {% load humanize %}
+
+      <div class="productos-precio">
+        <span>Precio: ${{ producto.precio|intcomma }}</span>
+      </div>
+      <form class="productos-form" action="{% url 'carro:carro_mas' producto.id_producto %}" method="post">
+        <button class="productos-button" type="submit">Añadir al carrito</button>
+        {% csrf_token %}
+      </form>
+    </article>
   </div>
 {% endblock %}

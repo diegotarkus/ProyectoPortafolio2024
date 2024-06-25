@@ -4,6 +4,7 @@ from django.views.decorators.http import require_POST
 from gestionPedidos.models import Producto
 from .carro import Carro
 from .forms import anadirProductoForm
+from guest_user.decorators import allow_guest_user
 #aqui va el form cupon
 
 def carro_mas(request, id_producto):
@@ -29,6 +30,7 @@ def carro_limpiar(request):
     carro.limpiar()
     return redirect('/')
 
+@allow_guest_user
 def detalle_carro(request):
     carro = Carro(request)
     return render(request, 'detalle_carro.html', {'carro': request.session['carro']})
