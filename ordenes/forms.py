@@ -22,6 +22,9 @@ class OrdenForm (forms.ModelForm):
             'comuna' : 'Comuna',
             'ciudad' : 'Ciudad',
             'comentario' : 'Comentario',
+            'cupon' : 'cupon',
+            'descuento' : 'descuento',
+            'total_oc' : 'total_oc',
             'user' : 'user'
         }
         widgets = {
@@ -32,6 +35,9 @@ class OrdenForm (forms.ModelForm):
             'comuna' : forms.TextInput(attrs={'class' : 'form-control'}),
             'ciudad' : forms.TextInput(attrs={'class' : 'form-control'}),
             'comentario' : forms.TextInput(attrs={'class' : 'form-control'}),
+            'cupon' : forms.TextInput(attrs={'is_hidden' : True}),
+            'descuento' : forms.TextInput(attrs={'is_hidden' : True}),
+            'total_oc' : forms.TextInput(attrs={'is_hidden' : True}),
             'user' : forms.TextInput(attrs={'is_hidden' : True})
         }
         

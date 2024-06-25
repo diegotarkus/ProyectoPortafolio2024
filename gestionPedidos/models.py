@@ -12,6 +12,10 @@ class Categoria(models.Model):
     
     def __str__(self):
         return self.nombre
+    
+    def get_absolute_url(self):
+        return reverse("categoria", args=[self.nombre])
+
 
 
 class Producto(models.Model):

@@ -7,11 +7,10 @@ from guest_user.decorators import allow_guest_user
 from django.db.models import Q
 from .models import *
 from gestionPedidos.models import Producto, Categoria
+from ordenes.models import Orden, OrdenItem
 from .forms import *
 from carro.forms import anadirProductoForm
 import bcrypt
-
-# Create your views here.
 
 def root(request):
     return redirect('/home')
@@ -20,18 +19,16 @@ def home(request):
     context = {'productos': Producto.objects.all()}
     return render(request, "home.html", context)
 
-def lista_categoria(request, id):
-    busqueda = request.POST.get("buscador")
-    lista_productos = Producto.objects.filter(categoria=id)
-    
-    if busqueda:
-        lista_productos = Producto.objects.filter(
-            Q(nombre__icontains=busqueda),
-            Q(descripcion__icontains=busqueda)
-        ).distinct()
-    
-    context = {'lista_productos' : lista_productos}
-    return render(request, 'home', context)
+def categoria(request, id):
+    id = id.replace('-', ' ')
+    try:
+        categoria = Categoria.objects.get(nombre=id)
+        print("1")
+        productos = Producto.objects.filter(categoria=categoria)
+        print("2")
+        return render(request, 'categoria', {'productos' : productos, 'categoria' : categoria})
+    except:
+        return redirect('home')
 
 @allow_guest_user
 def detalle_producto(request, id_producto):
@@ -53,7 +50,6 @@ def registrar(request):
         else:
             data['form'] = formulario
     return render(request, 'auth/registrar.html', data)
-
     
 def exit(request):
     logout(request)

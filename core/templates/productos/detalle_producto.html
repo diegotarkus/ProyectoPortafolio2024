@@ -21,7 +21,7 @@
         <div class="panel-body">
           <h3>{{ producto.nombre }}</h3>
           <p>
-            <a href={{ producto.categoria.get_absolute_url }}>
+            <a href="{% url 'categoria' producto.categoria %}">
               {{ producto.categoria }}
             </a>
           </p>
@@ -35,6 +35,7 @@
 
           <form action="{% url 'carro:carro_mas' producto.id_producto %}" method="post">
             {% csrf_token %}
+            {{ form }}
             <input class="btn btn-primary" type="submit" value="Añade al carro">
           </form>
         </div>

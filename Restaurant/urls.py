@@ -27,7 +27,8 @@ urlpatterns = [
     path('', include('core.urls')),
     path('carro/', include('carro.urls'), name='carro'),
     path('gestionPedidos/', include('gestionPedidos.urls')),
-    path('ordenes/', include('ordenes.urls'))   
+    path('ordenes/', include('ordenes.urls')),
+    path('cupones/', include('cupones.urls'))
 ]
 
 if settings.DEBUG:

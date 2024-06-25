@@ -41,5 +41,5 @@ class Contacto(models.Model):
     creado = models.DateTimeField(verbose_name='creado', auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
-        return (self.crado)
+        return (self.creado)
     

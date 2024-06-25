@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.contrib.admin.views.decorators import staff_member_required
 from guest_user.decorators import allow_guest_user
 from .forms import OrdenForm, OrdenFormAdmin
+from cupones.forms import CuponForm
 from .models import Orden, OrdenItem
 from gestionPedidos.models import Producto
 from carro.carro import Carro
@@ -14,6 +15,7 @@ User = get_user_model()
 def orden_nuevo(request):
     carro = Carro(request)
     usuario = User.objects.get(username=request.user.username)
+    total = carro.carro_total()
     print(usuario)
     if request.method == 'POST':
         form = OrdenForm(request.POST)
@@ -25,6 +27,7 @@ def orden_nuevo(request):
             ciudad = form.cleaned_data.get('ciudad')
             telefono = form.cleaned_data.get('telefono')
             comentario = form.cleaned_data.get('comentario')
+            total_oc = total
             user = usuario
             orden = Orden.objects.create(
                 nombre = nombre,
@@ -34,8 +37,10 @@ def orden_nuevo(request):
                 ciudad = ciudad,
                 telefono = telefono,
                 comentario = comentario,
+                total_oc = total_oc,
                 user = user
             )
+            
             orden.save()
                      
             for item in carro:
@@ -49,7 +54,8 @@ def orden_nuevo(request):
         return render(request, 'exito.html', {'orden' : orden})
     else:
         form = OrdenForm()
-    return render(request, 'checkout.html', {'carro' : carro, 'form' : form})
+        cuponform = CuponForm()
+    return render(request, 'checkout.html', {'carro' : carro, 'form' : form, 'cuponform' : CuponForm})
 
 @staff_member_required
 def ordenes_lista(request):
@@ -61,26 +67,42 @@ def orden_editar(request, id):
     try:
         orden = Orden.objects.get(id = id)
         form = OrdenFormAdmin(instance = orden)
-
+        print("1")
         if request.method == 'POST':
+            print("2")
             form = OrdenFormAdmin(request.POST, instance = orden)
+            print("3")
             if form.is_valid():
                 form.save()
-                return redirect(reverse('ordenes') + '?UPDATED')
+                return redirect(reverse('ordenes:ordenes_lista') + '?UPDATED')
             else:
-                return redirect(reverse('orden_editar') + id_producto) 
+                return redirect(reverse('ordenes:orden_editar') + id_producto) 
 
         context = {'form' : form}
         return render(request,'orden_editar.html', context)
     except:
-        return redirect(reverse('ordenes') + '?NO_EXISTS')
+        return redirect(reverse('ordenes:ordenes_lista') + '?NO_EXISTS')
     
 @staff_member_required   
 def orden_borrar(request, id):
     try:
         orden = Orden.objects.get(id = id)
         orden.delete()
-        return redirect(reverse('ordenes') + '?DELETED')
+        return redirect(reverse('ordenes:ordenes_lista') + '?DELETED')
     except:
-        return redirect(reverse('ordenes') + '?FAIL')
-
+        return redirect(reverse('ordenes:ordenes_lista') + '?FAIL')
+    
+def ordenes(request):
+    if request.user.is_authenticated:
+        ordenes = Orden.objects.all()             
+        return render(request, 'client/ordenes.html', {'ordenes' : ordenes})
+    else:
+        return redirect('home')
+    
+def orden_detalle(request, pk):
+    if request.user.is_authenticated:
+        orden = Orden.objects.get(id=pk)
+        items = OrdenItem.objects.filter(orden=pk)
+        return render(request, 'client/orden_detalle.html', {'orden' : orden, 'items' : items})
+    else:
+        return redirect('home')

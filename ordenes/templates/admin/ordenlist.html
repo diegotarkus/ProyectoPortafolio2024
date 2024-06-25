@@ -82,14 +82,15 @@
                     <td>{{o.id}}</td>
                     <td>{{o.user}}</td>
                     <td>{{o.creada}}</td>
+                    <td>{{o.total_oc}}</td>
                     <td>{{o.estado}}</td>
                     <td>
-                        <a class="text-decoration-none" href="#">
+                        <a class="text-decoration-none" href="{% url 'ordenes:orden_editar' o.id %}">
                             <span class="text-warning fs-2">
                                 <i class="fa-solid fa-pencil"></i>
                             </span>
                         </a>
-                        <a class="text-decoration-none" href="#">
+                        <a class="text-decoration-none" href="{% url 'ordenes:orden_borrar' o.id %}">
                             <span class="text-danger fs-2">
                                 <i class="fa-solid fa-trash"></i>
                             </span>

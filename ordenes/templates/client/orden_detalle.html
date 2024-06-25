@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Mi orden {{o.id}} {% endblock %}
+
+{% block first_content %}{% endblock %}
+
+{% block second_content%}
+{% load humanize %}
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Orden n° {{orden.id}}</h5>
+      <p class="card-text">
+        Nombre: {{orden.nombre}} {{orden.apellido}}
+        Dirección: {{orden.direccion}}, {{orden.comuna}}, {{orden.ciudad}}
+        Telefono: {{orden.telefono}}
+        <br>
+        Comentario: {%if orden.comentario%} {{orden.comentario }} {% else %} No hay comentario. {% endif %}
+        <h6>Productos:</h6>
+      <p class="card-text">
+        {% for i in items %}
+            {{i.producto}} x {{i.cantidad}} -- {{i.precio | intcomma }}
+      </p>
+        {% endfor %}
+
+        Total del pedido: $ {{orden.total_oc | intcomma }}
+        <br>
+        Estado: <strong>{{orden.estado}}</strong>
+        <br>
+      <a href="{% url 'ordenes:ordenes' %}" class="btn btn-primary">Volver</a>
+    </div>
+</div>
+
+{% endblock %}

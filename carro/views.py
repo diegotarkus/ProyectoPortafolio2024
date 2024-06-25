@@ -4,18 +4,24 @@ from django.views.decorators.http import require_POST
 from gestionPedidos.models import Producto
 from .carro import Carro
 from .forms import anadirProductoForm
-#aqui va el form cupon
+from cupones.forms import CuponForm
 
+@require_POST
 def carro_mas(request, id_producto):
     carro = Carro(request)
     producto = Producto.objects.get(id_producto=id_producto)
-    carro.anadir(producto=producto)
+    form = anadirProductoForm(request.POST)
+    if form.is_valid():
+        carro.anadir(
+            producto=producto,
+            cantidad=form.cleaned_data['cantidad'],
+            update=form.cleaned_data['update'])
     return redirect('carro:detalle_carro')
 
 def carro_menos(request, id_producto):
     carro = Carro(request)
     producto = Producto.objects.get(id_producto=id_producto)
-    carro.remover(producto=producto)
+    carro.eliminar(producto=producto)
     return redirect('carro:detalle_carro')
 
 def carro_eliminar(request, id_producto):
@@ -31,4 +37,6 @@ def carro_limpiar(request):
 
 def detalle_carro(request):
     carro = Carro(request)
-    return render(request, 'detalle_carro.html', {'carro': request.session['carro']})
+    for item in carro:
+        item['update_cantidad_form'] = anadirProductoForm(initial={'cantidad': item['cantidad'], 'update': True})
+    return render(request, 'detalle_carro.html', {'carro': carro})

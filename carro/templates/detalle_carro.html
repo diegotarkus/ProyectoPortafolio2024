@@ -16,33 +16,44 @@
                     <th>Imagen</th>
                     <th>Nombre</th>
                     <th>Cantidad</th>
+                    <th>Precio unitario</th>
                     <th>Precio total</th>
                 </thead>
                 <tbody>
-                    {% load bootstrap_icons %}
                     {% load humanize %}
-                    
-                        {% for key, value in request.session.carro.items %}
-                            <tr>
-                                <td>
-                                    {% if value.imagen %}
-                                        <img class="img-fluid"  src="{{value.imagen.url}}" class="card-img-top p-2" alt="{{value.nombre}}">
-                                    {% else %}
-                                        <img src="{% static 'img/image_not_found.jpg' %}" class="card-img-top" alt="not found">
-                                    {% endif %}                        
-                                </td>
-                                <td>{{value.nombre}}</td>
-                                <td>{{value.cantidad}}
-                                    <a href="{% url 'carro:carro_mas' value.id_producto %}" class="btn btn-secondary btn-sm" type="button"><i class="bi bi-plus"></i></a>
-                                    <a href="{% url 'carro:carro_menos' value.id_producto %}" class="btn btn-secondary btn-sm" type="button"><i class="bi bi-dash"></i></a>
-                                   
-                                </td>                               
-                                <td> $ {{value.precio | intcomma }} </td>
-                            </tr>
-                        {% endfor %}    
+                    {% for item in carro %}
+                    {% with producto=item.producto  %}
+                        <tr>
+                            <td>
+                                <a href="{{ producto.get__absolute_url }}">
+                                    <img src="{% if producto.image %} {{ producto.image.url }} {% else %} {% static 'img/default.jpg' %} {% endif %}" alt="..." style="height: 130px; width: auto">
+                                </a>
+                            </td>
+                            <td>{{ producto.nombre }}</td>
+                            <td>
+                                <form action="{% url 'carro:carro_mas' producto.id_producto %}" method="post">
+                                    {% csrf_token %}
+                                    {{ item.update_cantidad_form.cantidad }}
+                                    {{ item.update_cantidad_form.update }}
+                                    <input type="submit" value="Update" class="btn btn-info">
+                                </form>
+                                <a href="{% url 'carro:carro_menos' producto.id_producto %}">Remove</a>
+                            </td>
+                            <td>$ {{ item.precio | intcomma }}</td>
+                            <td>$ {{ item.precio_total | intcomma }}</td>
+                        </tr>
+                    {% endwith %}
+                {% endfor %}
                 </tbody>
             </table>
-    </div>            
+        </div>
+        <div class="row">           
+
+            <div class="col-md-4" style="text-align : center">
+                Total: $ {{ carro.carro_total | intcomma }}
+            </div>    
+        </div>
+    </div>                
                         
 {% else %}
     <h3>No hay elementos en tu carro de compras.</h3>
@@ -50,17 +61,13 @@
     <div class="col-md-4">
     {% if user|is_guest_user %}
         <a class="btn btn-warning" href="{% url 'registrar' %}">¡Registrate para guardar tus compras y ganar premios!</a>
-    {% endif %}  
+    {% endif %} 
+    </div> 
+
+    <div class="col-md-4" style="text-align : right">
+        <a class="btn btn-dark" href="{% url 'home' %}">Seguir comprando</a>
+        <a class="btn btn-danger" href="{% url 'carro:carro_limpiar' %}">Limpiar</a>
+        <a class="btn btn-primary" href="{% url 'ordenes:orden_nuevo' %}">Checkout</a>
     </div>
-        <div class="row">
-            <div class="col-md-4" style="text-align : center">
-                Total: $ {{importe_total_carro | intcomma }}
-            </div>
-            <div class="col-md-4" style="text-align : right">
-                <a class="btn btn-dark" href="{% url 'home' %}">Seguir comprando</a>
-                <a class="btn btn-danger" href="{% url 'carro:carro_limpiar' %}">Limpiar</a>
-                <a class="btn btn-primary" href="{% url 'ordenes:orden_nuevo' %}">Checkout</a>
-            </div>
-        </div>
-    </div>
+
 {% endblock %}        

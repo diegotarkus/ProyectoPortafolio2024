@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'core',
     'gestionPedidos',
     'carro',
-    'ordenes'
+    'ordenes',
+    'cupones'
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -148,6 +149,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,"media")
 
 CARRO_SESSION_ID = 'carro'
+CUPON_SESSION_ID = 'cupon_id'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

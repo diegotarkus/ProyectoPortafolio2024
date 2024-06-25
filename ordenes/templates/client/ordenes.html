@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Mis pedidos{% endblock %}
+
+{% block first_content %}{% endblock %}
+
+{% block second_content%}
+
+<div class="container-fluid my-2">
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for o in ordenes %}
+                <tr>
+                    <td><a href="{% url 'ordenes:orden_detalle' o.id %}">{{o.id}}</a></td>
+                    <td>{{o.creada}}</td>
+                    <td>{{o.total_oc}}</td>
+                    <td>{{o.estado}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
