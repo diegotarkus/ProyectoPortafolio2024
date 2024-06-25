@@ -2,105 +2,72 @@
 
 {% load static %}
 
-{% block title %}Lista de productos{% endblock %}
+{% block title %}
+  Lista de productos
+{% endblock %}
 
-{% block first_content%} 
-<nav class="navbar navbar-expand-lg bg-dark navbar-dark text-white">
-    <div class="container">
-        <ul class="navbar-nav">                    
-            {% if user.is_staff %}
-                <li>
-                    <div class="d-flex">
-                        <a href="/gestionPedidos/producto_nuevo" class="btn btn-outline-light">Agregar Producto</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <div class="d-flex">
-                        <a href="/gestionPedidos/categoria_nuevo" class="btn btn-outline-light">Agregar Categoría</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <div class="d-flex">
-                        <a href="/ordenes/admin/ordenlist" class="btn btn-outline-light">Ordenes</a>
-                    </div>
-                </li>
-            {% endif %}
-        </ul>
-    </div>
-</nav>            
-<div class="container my-1">
+{% block first_content %}
+  <div class="container my-1">
     <div class="row">
-        {% if 'OK' in request.GET %}
+      {% if 'OK' in request.GET %}
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            Información <strong>ingresada</strong> satisfactoriamente.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          Información <strong>ingresada</strong> satisfactoriamente.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        {% endif %}
-        {% if 'FAIL' in request.GET %}
+      {% endif %}
+      {% if 'FAIL' in request.GET %}
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>Se ha producido un error.</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          <strong>Se ha producido un error.</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        {% endif %}
-        {% if 'NO_EXISTS' in request.GET %}
+      {% endif %}
+      {% if 'NO_EXISTS' in request.GET %}
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>Producto no encontrado.</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          <strong>Producto no encontrado.</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        {% endif %}
-        {% if 'UPDATED' in request.GET %}
+      {% endif %}
+      {% if 'UPDATED' in request.GET %}
         <div class="alert alert-info alert-dismissible fade show" role="alert">
-            Información <strong>actualizada</strong> satisfactoriamente.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          Información <strong>actualizada</strong> satisfactoriamente.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        {% endif %}
-        {% if 'DELETED' in request.GET %}
+      {% endif %}
+      {% if 'DELETED' in request.GET %}
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            Información <strong>eliminada</strong> satisfactoriamente.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          Información <strong>eliminada</strong> satisfactoriamente.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        {% endif %}
+      {% endif %}
     </div>
-</div>{% endblock %}
+  </div>
+{% endblock %}
 
 {% block second_content %}
-
-<div class="container-fluid my-2">
-    <div class="table-responsive">
-        <table class="table">
-            <thead class="table-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Usuario</th>
-                    <th>Fecha</th>
-                    <th>Estado</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for o in ordenes %}
-                <tr>
-                    <td>{{o.id}}</td>
-                    <td>{{o.user}}</td>
-                    <td>{{o.creada}}</td>
-                    <td>{{o.total_oc}}</td>
-                    <td>{{o.estado}}</td>
-                    <td>
-                        <a class="text-decoration-none" href="{% url 'ordenes:orden_editar' o.id %}">
-                            <span class="text-warning fs-2">
-                                <i class="fa-solid fa-pencil"></i>
-                            </span>
-                        </a>
-                        <a class="text-decoration-none" href="{% url 'ordenes:orden_borrar' o.id %}">
-                            <span class="text-danger fs-2">
-                                <i class="fa-solid fa-trash"></i>
-                            </span>
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div> 
-
-{% endblock%}
+  <div class="container-ordenlist">
+    <table class="table">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Usuario</th>
+          <th>Fecha</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for o in ordenes %}
+          <tr>
+            <td>{{ o.id }}</td>
+            <td>{{ o.user }}</td>
+            <td>{{ o.creada }}</td>
+            <td>{{ o.estado }}</td>
+            <td>
+              <a class="text-decoration-none" href="#"><span class="text-warning fs-2"><i class="fa-solid fa-pencil"></i></span></a>
+              <a class="text-decoration-none" href="#"><span class="text-danger fs-2"><i class="fa-solid fa-trash"></i></span></a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
