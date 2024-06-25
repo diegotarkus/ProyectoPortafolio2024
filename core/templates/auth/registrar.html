@@ -1,41 +1,46 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Ingresa tus datos{% endblock %}
+{% block title %}
+  Ingresa tus datos
+{% endblock %}
 
-{% block first_content%}
-<div class="container mt-4">  
+{% block first_content %}
+  <div class="container-signup">
     {% if messages %}
-        <div class="alert {{ request.session.level_mensaje }} alert-dismissible" role="alert" >
-            <ul>
-                {% for message in messages %}
-                    <li><strong>{{message}}</strong></li>    
-                {% endfor %}                   
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </ul>
-        </div>        
+      <div class="alert {{ request.session.level_mensaje }} alert-dismissible" role="alert">
+        <ul>
+          {% for message in messages %}
+            <li>
+              <strong>{{ message }}</strong>
+            </li>
+          {% endfor %}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </ul>
+      </div>
     {% endif %}
-</div>    
+  </div>
 {% endblock %}
 
 {% block second_content %}
-<div class="min-vh-100 d-flex flex-colum py-4">
-    <div class="container">
-        <div class="col-lg-6 col-md-6 col-sm-4 mx-auto bg-dark text-white animate__animated animate__bounceInDown animate__delay-0.4s">
-            <div class="card-header">
-                <h3 class="text-center">Registro de Usuarios</h3>
-                {% load crispy_forms_tags %}
-                <div class="card-body py-2">
-                    <form method="post" action="">
-                        {% csrf_token %} {{ form | crispy }}
-
-                        <div class="text-center pb-2">
-                            <button class="btn btn-danger" type='submit'>Registrarse</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+  <div class="signup-container">
+    <div class="signup-logo">
+      <img src="{% static 'img/small-logo.png' %}" alt="Logo Solufood" />
     </div>
-</div>
+    <div class="signup-header">
+      <h1>Signup</h1>
+    </div>
+    {% load crispy_forms_tags %}
+    <div class="signup-body">
+      <form method="post">
+        {% csrf_token %} {{ form|crispy }}
+        <div class="signup-button">
+          <button type="submit">Unirme</button>
+        </div>
+        <div class="signup-already">
+          <a href="/login">¿Ya tienes una cuenta?</a>
+        </div>
+      </form>
+    </div>
+  </div>
 {% endblock %}
