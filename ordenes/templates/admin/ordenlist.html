@@ -23,19 +23,19 @@
       {% endif %}
       {% if 'NO_EXISTS' in request.GET %}
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <strong>Producto no encontrado.</strong>
+          <strong>Orden no encontrada.</strong>
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       {% endif %}
       {% if 'UPDATED' in request.GET %}
         <div class="alert alert-info alert-dismissible fade show" role="alert">
-          Información <strong>actualizada</strong> satisfactoriamente.
+          Orden <strong>actualizada</strong> satisfactoriamente.
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       {% endif %}
       {% if 'DELETED' in request.GET %}
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-          Información <strong>eliminada</strong> satisfactoriamente.
+          Orden <strong>eliminada</strong> satisfactoriamente.
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       {% endif %}
@@ -60,7 +60,12 @@
             <td>{{ o.id }}</td>
             <td>{{ o.user }}</td>
             <td>{{ o.creada }}</td>
-            <td>{{ o.estado }}</td>
+            <td>
+              <form method="post">{% csrf_token %}
+              {{ form.as_p }}
+              <input type="submit" value="Update">
+              </form>
+            </td>
             <td>
               <a class="text-decoration-none" href="#"><span class="text-warning fs-2"><i class="fa-solid fa-pencil"></i></span></a>
               <a class="text-decoration-none" href="#"><span class="text-danger fs-2"><i class="fa-solid fa-trash"></i></span></a>

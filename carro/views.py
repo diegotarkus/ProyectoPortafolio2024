@@ -18,6 +18,8 @@ def carro_mas(request, id_producto):
             update=form.cleaned_data['update'])
     return redirect('carro:detalle_carro')
 
+
+    
 def carro_menos(request, id_producto):
     carro = Carro(request)
     producto = Producto.objects.get(id_producto=id_producto)

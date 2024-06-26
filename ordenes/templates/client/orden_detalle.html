@@ -8,6 +8,7 @@
 {% block second_content%}
 {% load humanize %}
 
+<!-- 
 <div class="card" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">Orden n° {{orden.id}}</h5>
@@ -23,13 +24,47 @@
             {{i.producto}} x {{i.cantidad}} -- {{i.precio | intcomma }}
       </p>
         {% endfor %}
-
         Total del pedido: $ {{orden.total_oc | intcomma }}
         <br>
         Estado: <strong>{{orden.estado}}</strong>
         <br>
       <a href="{% url 'ordenes:ordenes' %}" class="btn btn-primary">Volver</a>
     </div>
+</div>
+-->
+
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 class="modal-title">Orden {{o.id}}</h2>
+      <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Orden n° {{orden.id}}</h5>
+          <p class="card-text">
+            Nombre: {{orden.nombre}} {{orden.apellido}}
+            Dirección: {{orden.direccion}}, {{orden.comuna}}, {{orden.ciudad}}
+            Telefono: {{orden.telefono}}
+            <br>
+            Comentario: {%if orden.comentario%} {{orden.comentario }} {% else %} No hay comentario. {% endif %}
+            <h6>Productos:</h6>
+            {% for i in items %}
+                {{i.producto}} x {{i.cantidad}} -- {{i.precio | intcomma }}
+            {% endfor %}    
+          </p>
+            
+            Total del pedido: $ {{orden.total_oc | intcomma }}
+            <br>
+            Estado: <strong>{{orden.estado}}</strong>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close">OK</button>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

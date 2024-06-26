@@ -5,7 +5,14 @@
 {% endblock %}
 
 {% block first_content %}
-
+  <script type="text/javascript">
+    var $ = jQuery.noConflict()
+    function anadir_categorias(url){
+      $('#categorias').load(url, function(){
+          $(this).modal('show');
+      });
+    }
+  </script>
 {% endblock %}
 
 {% block second_content %}
@@ -39,7 +46,7 @@
         <label for="categoria" class="fw-bold">Categoría:</label>
         <div class="input-group">{{ form.categoria }}</div>
         <p>
-          <a href="/gestionPedidos/categoria_nuevo" class="btn btn-info m-2">Agregar categoría</a>
+          <button onclick="anadir_categorias('/gestionPedidos/categoria_nuevo')" class="btn btn-info m-2">Agregar categoría</button>
         </p>
       </div>
 
@@ -60,4 +67,12 @@
       </div>
     </form>
   </div>
+
+  <div class="modal fade" id="categorias" role="dialog">
+
+  </div>
 {% endblock %}
+
+{% block extrajs %}
+
+{% endblock extrajs %}

@@ -1,28 +1,35 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
-{% block title %}
-  Agregar categoría
-{% endblock %}
+{% block title %}Agregar categoría{% endblock %}
 
 {% block first_content %}
   <!-- Este bloque está vacío, puedes agregar contenido aquí si es necesario -->
 {% endblock %}
 
 {% block second_content %}
-  <div class="container-categoria">
-    <h1>Agregar categría</h1>
-
-    <form action="" method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      <label for="nombre" class="fw-bold">Categoría:</label>
-      <div class="input-group">{{ form.nombre }}</div>
-
-      <div class="categoria-button">
-        <input type="submit" class="btn btn-primary m-2" id="registrar" value="Guardar" />
-        <a href="/gestionPedidos/productos" class="btn btn-danger m-2">Cancelar</a>
+<div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 class="modal-title">Añadir categoría</h2>
+      <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <div class="container-categoria">
+        <h1>Agregar categoría</h1>
+    
+        <form action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <label for="nombre" class="fw-bold">Categoría:</label>
+          <div class="input-group">{{ form.nombre }}</div>
+    
+          <div class="categoria-button">
+            <input type="submit" class="btn btn-primary m-2" id="registrar" value="Guardar" />
+            <button class="btn btn-danger" type="button" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+          </div>
+        </form>
       </div>
-    </form>
+    </div>
   </div>
+</div>
 {% endblock %}

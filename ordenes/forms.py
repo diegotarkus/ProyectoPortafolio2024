@@ -45,6 +45,6 @@ class OrdenFormAdmin(forms.ModelForm):
     class Meta:
         model = Orden
         fields = ['estado']
-        labels = {'estado' : 'estado'}
-        widgets = {'estado' : forms.Select(attrs={'class' : 'form-control'})}
+        labels = {'estado' : 'Estado'}
+        widgets = {forms.Select(attrs={'class' : 'form-control'})}
         

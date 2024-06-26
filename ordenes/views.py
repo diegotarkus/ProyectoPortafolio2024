@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.contrib.admin.views.decorators import staff_member_required
+from django.views.generic import UpdateView
+from django.utils.decorators import method_decorator
 from guest_user.decorators import allow_guest_user
 from .forms import OrdenForm, OrdenFormAdmin
 from cupones.forms import CuponForm
@@ -59,8 +61,32 @@ def orden_nuevo(request):
 
 @staff_member_required
 def ordenes_lista(request):
-    context = {'ordenes' : Orden.objects.all()}
+    form = OrdenFormAdmin()
+    if request.method == 'POST':
+        form = OrdenFormAdmin(request.POST)
+        if form.is_valid():
+            estado = form.cleaned_data.get('estado')
+            Orden.objects.update(estado=estado)
+        else:
+            form = OrdenFormAdmin
+            
+    context = {'ordenes' : Orden.objects.all(), 'form' : form}
     return render(request,'admin/ordenlist.html',context)
+
+def estado_update(request, id):
+    orden = Orden.objects.get(id=id)
+    form = OrdenFormAdmin(instance = orden)
+    if request.method == 'POST':
+        form = OrdenFormAdmin(request.POST, instance = orden)
+        if form.is_valid():
+            estado = form.cleaned_data.get('estado')
+            Orden.objects.update(estado=estado)
+            return redirect(reverse('ordenes') + '?UPDATED')
+        else:
+            form = OrdenFormAdmin
+        return redirect(reverse('productos') + '?FAIL')
+    
+        
 
 @staff_member_required
 def orden_editar(request, id):
@@ -94,7 +120,7 @@ def orden_borrar(request, id):
     
 def ordenes(request):
     if request.user.is_authenticated:
-        ordenes = Orden.objects.all()             
+        ordenes = Orden.objects.filter(user=request.user.id)             
         return render(request, 'client/ordenes.html', {'ordenes' : ordenes})
     else:
         return redirect('home')

@@ -31,16 +31,6 @@ class Carro(object):
         if producto.id_producto in self.carro:
             del self.carro[producto.id_producto]
             self.guardar()
-    
-    def remover (self, producto):
-        for key, value in self.carro.items():
-            if key == str(producto.id_producto):
-                value['cantidad'] = value['cantidad']-1
-                value['precio'] = value['precio']-producto.precio
-                if value['cantidad']<1:
-                    self.eliminar(producto)
-                    break
-        self.guardar()
             
     def limpiar (self):
         self.session["carro"]={}

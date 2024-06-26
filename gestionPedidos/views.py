@@ -11,13 +11,17 @@ def categoria_nuevo(request):
         form = CategoriaList(request.POST, request.FILES)
         if form.is_valid():
             nombre = form.cleaned_data.get('nombre')
+            print(nombre)
             obj = Categoria.objects.create(
                 nombre = nombre
             )
+            
             obj.save()
+            print("guardado")
             return redirect(reverse('productos'))
         else:
-            return redirect(reverse('home'))
+            return redirect(reverse('#'))
+            print("no se guardo")
     else:
         form = CategoriaList
     return render(request, 'categoria_nuevo.html', {'form' : form})

@@ -12,9 +12,11 @@ from .forms import *
 from carro.forms import anadirProductoForm
 import bcrypt
 
+
 def root(request):
     return redirect('/home')
 
+@allow_guest_user
 def home(request):
     context = {'productos': Producto.objects.all()}
     return render(request, "home.html", context)
@@ -30,7 +32,6 @@ def categoria(request, id):
     except:
         return redirect('home')
 
-@allow_guest_user
 def detalle_producto(request, id_producto):
     producto = get_object_or_404(Producto, id_producto=id_producto)
     form = anadirProductoForm()

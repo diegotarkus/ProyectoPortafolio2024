@@ -2,13 +2,14 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.contrib import messages
 from django.views.decorators.http import require_POST
+from guest_user.mixins import RegularUserRequiredMixin
 from .models import Cupon
 from carro.carro import Carro
 from ordenes.models import Orden
 from .forms import CuponForm
 
 @require_POST
-def aplicar_cupon(request):
+def aplicar_cupon(request, RegularUserRequiredMixin):
     now = timezone.now()  
     form = CuponForm(request.POST)
     if form.is_valid():

@@ -77,7 +77,7 @@
               <div class="productos-accion">
                 <a class="accion-editar" href="{% url 'producto_editar' id_producto=p.id_producto %}"><img src="{% static 'img/pencil-square.svg' %}" /></a>
 
-                <a class="accion-eliminar" href="{% url 'producto_borrar' id_producto=p.id_producto %}"><img src="{% static 'img/trash3.svg' %}" /></a>
+                <a class="accion-eliminar" href="#" onclick="eliminarProducto('{{p.id_producto}}')"><img src="{% static 'img/trash3.svg' %}" /></a>
               </div>
             </td>
           </tr>
@@ -85,4 +85,25 @@
       </tbody>
     </table>
   </div>
+
+  <script>
+    function eliminarProducto(id_producto) {
+      console.log(id_producto)
+      Swal.fire({
+        "title": "¿Borrar producto?",
+        "text": "Esta acción no puede revertirse.",
+        "icon": "warning",
+        "showCancelButton": true,
+        "confirmButtonColor": "red",
+        "cancelButtonText": "No borrar",
+        "confirmButtonText": "Elminar producto",
+        "reverseButtons": true,
+      }).then(function(result) {
+        if (result.isConfirmed) {
+          window.location.href = "/gestionPedidos/productos/borrar/" + id_producto
+        };
+      });
+    };
+  </script>
+  
 {% endblock %}

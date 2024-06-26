@@ -7,7 +7,17 @@
 
 {% block second_content%}
 
-<div class="container-fluid my-2">
+<script type="text/javascript">
+    var $ = jQuery.noConflict()
+    function abrir_orden(url){
+        $('#orden').load(url, function(){
+            $(this).modal('show');
+        });
+    }
+</script>
+
+
+<div class="container-ordenlist">
     <div class="table-responsive">
         <table class="table">
             <thead class="table-dark">
@@ -21,7 +31,7 @@
             <tbody>
                 {% for o in ordenes %}
                 <tr>
-                    <td><a href="{% url 'ordenes:orden_detalle' o.id %}">{{o.id}}</a></td>
+                    <td><button onclick="abrir_orden('{% url 'ordenes:orden_detalle' o.id %}')">{{o.id}}</button></td>
                     <td>{{o.creada}}</td>
                     <td>{{o.total_oc}}</td>
                     <td>{{o.estado}}</td>
@@ -32,4 +42,12 @@
     </div>
 </div>
 
+<div class="modal fade" id="orden" role="dialog">
+
+</div>
+
 {% endblock %}
+
+{% block extrajs %}
+
+{% endblock extrajs %}

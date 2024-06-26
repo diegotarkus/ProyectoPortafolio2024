@@ -10,7 +10,6 @@ a {
   text-decoration: none;
 }
 
-
 /*              BASE              /*
 
 /* Navbar */
@@ -37,7 +36,7 @@ a {
 }
 
 .dropdown-menu :hover {
-  background-color: tra;
+  background-color: transparent;
 }
 
 .dropdown button {
@@ -51,7 +50,6 @@ a {
   background-color: #5c261511;
   color: rgba(255, 0, 0, 0.589);
 }
-
 
 .container-fluid {
   width: auto;
@@ -68,7 +66,6 @@ a {
   color: rgba(255, 0, 0, 0.589);
   border-radius: 32px;
 }
-
 
 .container-fluid a {
   color: #5c2515;
@@ -111,7 +108,6 @@ a {
 .carrito-logo:hover {
   background-color: transparent;
 }
-
 
 /* Footer */
 footer {
@@ -272,13 +268,11 @@ footer {
 /*Product Card*/
 
 .container {
-
   width: auto;
   margin: auto;
   padding-left: 7rem;
   display: flex;
   flex-wrap: wrap;
-
 }
 
 .card {
@@ -287,7 +281,6 @@ footer {
   margin-bottom: 2rem;
   padding: 0px;
   border-radius: 20px;
-
 }
 
 .card img {
@@ -306,7 +299,6 @@ footer {
   width: 10rem;
   height: 3rem;
   margin: auto;
-
 }
 
 .boton-agregar {
@@ -324,10 +316,11 @@ footer {
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
-  background: linear-gradient(90deg,
-      rgba(195, 34, 34, 0.75) 0%,
-      rgba(255, 125, 41, 0.75) 100%);
-
+  background: linear-gradient(
+    90deg,
+    rgba(195, 34, 34, 0.75) 0%,
+    rgba(255, 125, 41, 0.75) 100%
+  );
 }
 
 .agregar :hover {
@@ -337,7 +330,7 @@ footer {
 .container-items {
   background-color: transparent;
   box-shadow: none;
-  border: none
+  border: none;
 }
 
 /*              LOGIN              /*
@@ -402,9 +395,11 @@ footer {
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
-  background: linear-gradient(90deg,
-      rgba(195, 34, 34, 0.75) 0%,
-      rgba(255, 125, 41, 0.75) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(195, 34, 34, 0.75) 0%,
+    rgba(255, 125, 41, 0.75) 100%
+  );
   position: relative;
   top: 5rem;
 }
@@ -412,7 +407,6 @@ footer {
 .login-body button:hover {
   background-color: red;
 }
-
 
 .login-body form {
   width: 25rem;
@@ -424,7 +418,6 @@ footer {
   font-size: 14px;
   font-weight: 500;
 }
-
 
 .login-body input {
   margin-bottom: 20px;
@@ -510,14 +503,12 @@ footer {
   font-weight: 500;
 }
 
-
 .signup-body input {
   margin-bottom: 20px;
   font-size: 16px;
   border-style: none;
   border-bottom: 2px solid #a9a9a9;
 }
-
 
 .signup-body button {
   width: 350px;
@@ -535,9 +526,11 @@ footer {
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
-  background: linear-gradient(90deg,
-      rgba(195, 34, 34, 0.75) 0%,
-      rgba(255, 125, 41, 0.75) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(195, 34, 34, 0.75) 0%,
+    rgba(255, 125, 41, 0.75) 100%
+  );
   position: relative;
   top: 5rem;
 }
@@ -591,7 +584,6 @@ footer {
   text-align: center;
   font-size: 32px;
   margin-bottom: 0.5rem;
-
 }
 
 .productos-categoria {
@@ -655,9 +647,11 @@ footer {
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
-  background: linear-gradient(90deg,
-      rgba(195, 34, 34, 0.75) 0%,
-      rgba(255, 125, 41, 0.75) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(195, 34, 34, 0.75) 0%,
+    rgba(255, 125, 41, 0.75) 100%
+  );
 }
 
 .productos-form button:hover {
@@ -675,7 +669,7 @@ footer {
   margin-bottom: 5rem;
   display: flex;
   border-radius: 20px;
-  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.20);
+  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.2);
 }
 
 .carrito-titulo {
@@ -686,7 +680,7 @@ footer {
 }
 
 .carrito-productos {
-  width: 60rem;
+  width: 40rem;
   height: 30rem;
   position: absolute;
   margin-top: 5rem;
@@ -710,7 +704,6 @@ footer {
   font-size: 24px;
   text-align: center;
   border-bottom: 2px solid #e7bfa4;
-
 }
 
 .resumen-cantidad {
@@ -727,7 +720,6 @@ footer {
   height: auto;
   margin-top: 2rem;
   margin-bottom: 2rem;
-
 }
 
 .resumen-title {
@@ -758,9 +750,8 @@ footer {
   text-align: center;
 }
 
-
 .carrito-resumen button {
-  width: 20rem;
+  width: 12rem;
   height: 3rem;
   margin: auto;
   margin-top: 1rem;
@@ -777,29 +768,38 @@ footer {
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
-  background: linear-gradient(90deg,
-      rgba(195, 34, 34, 0.75) 0%,
-      rgba(255, 125, 41, 0.75) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(195, 34, 34, 0.75) 0%,
+    rgba(255, 125, 41, 0.75) 100%
+  );
 }
 
 .carrito-resumen button:hover {
   background-color: red;
 }
 
-
 .carrito-signup button {
-  width: 8rem;
+  width: 5rem;
   position: absolute;
-  right: 17rem;
+  right: 12rem;
   background: rgb(34, 193, 195);
-  background: linear-gradient(90deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 0.16850490196078427) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(34, 193, 195, 1) 0%,
+    rgba(253, 187, 45, 0.16850490196078427) 100%
+  );
 }
 
 .carrito-login button {
-  width: 8rem;
+  width: 5em;
   position: absolute;
   background: rgb(195, 34, 153);
-  background: linear-gradient(90deg, rgba(195, 34, 153, 1) 0%, rgba(253, 187, 45, 0.16850490196078427) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(195, 34, 153, 1) 0%,
+    rgba(253, 187, 45, 0.16850490196078427) 100%
+  );
 }
 
 .carrito-invitacion {
@@ -812,7 +812,6 @@ footer {
   margin-bottom: 0;
 }
 
-
 /*              Checkout              */
 
 .container-checkout {
@@ -824,13 +823,12 @@ footer {
   margin-top: 5rem;
   margin-bottom: 10rem;
   border-radius: 20px;
-  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.20);
+  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.2);
 }
 
 .checkout-datos {
   width: 70%;
   height: auto;
-
 }
 
 .checkout-title {
@@ -849,20 +847,18 @@ footer {
 
 .checkout-form input {
   width: 25rem;
-  height: 3rem
+  height: 3rem;
 }
-
 
 .checkout-ordenar-button {
-  width: 20rem;
-  bottom: 10rem;
-  position: absolute;
-  margin-left: 43rem;
+  width: 10rem;
+  bottom: 5rem;
+  left: 30rem;
+  position: relative;
 }
 
-
 .checkout-ordenar-button input {
-  width: 20rem;
+  width: 10rem;
   height: 3rem;
   margin: auto;
   margin-top: 1rem;
@@ -879,9 +875,11 @@ footer {
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
-  background: linear-gradient(90deg,
-      rgba(195, 34, 34, 0.75) 0%,
-      rgba(255, 125, 41, 0.75) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(195, 34, 34, 0.75) 0%,
+    rgba(255, 125, 41, 0.75) 100%
+  );
 }
 
 .checkout-resumen {
@@ -913,7 +911,6 @@ footer {
   margin-bottom: 2rem;
   padding-left: 25rem;
   text-align: center;
-
 }
 
 .exito-flork {
@@ -992,7 +989,6 @@ footer {
   text-align: start;
 }
 
-
 /*              gestionPedidos Editar              */
 
 .container-editar-producto {
@@ -1011,7 +1007,6 @@ footer {
 .input-group {
   padding: 1rem 0;
 }
-
 
 .editar-producto-body label {
   width: 100%;
@@ -1042,7 +1037,6 @@ footer {
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
 }
-
 
 /*              Órdenes              */
 .container-ordenlist {

@@ -27,24 +27,34 @@
             {% load bootstrap_icons %}
             {% load humanize %}
 
-            {% for key, value in request.session.carro.items %}
-              <tr>
-                <td>
-                  {% if value.imagen %}
-                    <img class="img-fluid" src="{{ value.imagen.url }}" class="card-img-top p-2" alt="{{ value.nombre }}" />
-                  {% else %}
-                    <img src="{% static 'img/image_not_found.jpg' %}" class="card-img-top" alt="not found" />
-                  {% endif %}
-                </td>
-                <td>{{ value.nombre }}</td>
-                <td>
-                  <a href="{% url 'carro:carro_menos' value.id_producto %}"><img src="{% static 'img/dash.svg' %}" /></a>
-                  {{ value.cantidad }}
-
-                  <a href="{% url 'carro:carro_mas' value.id_producto %}"><img src="{% static 'img/plus.svg' %}" /></a>
-                </td>
-                <td>$ {{ value.precio|intcomma }}</td>
-              </tr>
+            {% for item in carro %}
+              {% with producto=item.producto %}
+                <tr>
+                  <td>
+                    <a href="{{ producto.get_absolute_url }}">
+                      <img src="{% if producto.imagen %}
+                          {{ producto.imagen.url }}
+                        {% else %}
+                          {% static 'img/default.jpg' %}
+                        {% endif %}"
+                        alt="..."
+                        style="height: 130px; width: auto" />
+                    </a>
+                  </td>
+                  <td>{{ producto.nombre }}</td>
+                  <td>
+                    <form action="{% url 'carro:carro_mas' producto.id_producto %}" method="post">
+                      {% csrf_token %}
+                      {{ item.update_cantidad_form.cantidad }}
+                      {{ item.update_cantidad_form.update }}
+                      <input type="submit" value="Update" class="btn btn-info">
+                  </form>
+                    <a class="btn btn-danger" href="{% url 'carro:carro_menos' producto.id_producto %}">Quitar</a>
+                  </td>
+                  <td>$ {{ item.precio|intcomma }}</td>
+                  <td>$ {{ item.precio_total|intcomma }}</td>
+                </tr>
+              {% endwith %}
             {% endfor %}
           </tbody>
         </table>
@@ -70,9 +80,8 @@
           <div class="carrito-login">
             <a href="{% url 'login' %}"><button>Ingresar</button></a>
           </div>
-        {% endif %}
-        {% load humanize %}
-        <div class="resumen-total">Total: $ {{ importe_total_carro|intcomma }}</div>
+        {% endif %} 
+        <div class="resumen-total">Total: $ {{ carro.carro_total|intcomma }}</div>
         <a class="resumen-checkout" href="{% url 'ordenes:orden_nuevo' %}"><button>Checkout</button></a>
       </div>
     </div>
