@@ -8,6 +8,7 @@ body {
 
 a {
   text-decoration: none;
+  color: #36454f;
 }
 
 /*              BASE              /*
@@ -23,8 +24,8 @@ a {
 
 .dropdown {
   display: flex;
-  width: 5rem;
-  height: 3rem;
+  width: auto;
+  height: auto;
   color: #5c2515;
   text-align: center;
 }
@@ -78,7 +79,7 @@ a {
 .main-usuario {
   width: 10rem;
   position: absolute;
-  right: 31rem;
+  right: 48rem;
 }
 
 .main-usuario span {
@@ -88,6 +89,7 @@ a {
 .logo {
   width: auto;
   height: 5rem;
+  margin-left: 0.5rem;
   position: relative;
 }
 
@@ -546,95 +548,76 @@ footer {
   margin-top: 8rem;
 }
 
-/*              Ver productos              */
+/*              Detalle productos             */
 
-.productos-contenedor {
-  width: 50rem;
-  height: 43rem;
-  background-color: white;
+.container-detalle {
+  width: 60%;
+  height: 30rem;
   margin: auto;
   margin-top: 3rem;
-  margin-bottom: 5rem;
-  padding: 3rem;
-  box-shadow: 0px 0px 40px 0px rgba(0, 0, 0, 0.12);
-  border-radius: 20px;
+  margin-bottom: 4rem;
   display: flex;
-  align-items: flex-start;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
 }
 
-.productos-imagen {
-  width: 20rem;
-  height: 20rem;
+.detalle-imagen {
+  width: 70%;
+  height: 70%;
+  padding: 1rem;
 }
 
-.productos-contenedor img {
-  width: 20rem;
-  height: 20rem;
-  border-radius: 5px;
-  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
-}
-
-.productos-article {
-  width: 22rem;
-  height: 40rem;
-  margin-left: 2rem;
-}
-
-.productos-article h2 {
-  text-align: center;
-  font-size: 32px;
-  margin-bottom: 0.5rem;
-}
-
-.productos-categoria {
-  width: auto;
+.detalle-imagen img {
+  width: 100%;
   height: auto;
-  margin-bottom: 3rem;
+  border-radius: 8px;
 }
 
-.productos-categoria a {
-  text-decoration: none;
-  color: #475b69;
-  font-weight: 300;
+.detalle-panel h3 {
+  margin-top: 1rem;
 }
-
-.productos-article a:hover {
-  color: red;
-}
-
-.productos-article-descripcion {
-  width: auto;
-  height: auto;
+.detalle-categoria {
   font-style: italic;
-}
-
-.productos-article-descripcion span {
-  font-weight: bold;
-  font-style: normal;
-}
-
-.productos-precio {
-  width: auto;
-  margin: auto;
-  margin-top: 6rem;
   margin-bottom: 1rem;
 }
 
-.productos-precio span {
-  font-weight: bold;
-  font-size: 19px;
+.detalle-precio {
+  color: red;
+  margin-bottom: 2rem;
 }
 
-.productos-form {
+.detalle-precio p {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.detalle-descripcion {
   width: auto;
   height: auto;
-  text-align: center;
-  margin-top: 2rem;
+  margin-bottom: 5rem;
 }
 
-.productos-form button {
-  width: 250px;
-  height: 50px;
+.detalle-form {
+  width: auto;
+  height: auto;
+  display: flex;
+  margin-top: auto;
+}
+
+.detalle-button {
+  width: auto;
+  height: auto;
+  border: 0;
+  border-radius: 20px;
+  color: white;
+  background-color: transparent;
+  margin-left: 1rem;
+}
+
+.detalle-button input {
+  width: 10rem;
+  height: 2rem;
   border: 0;
   border-radius: 20px;
   color: white;
@@ -654,7 +637,7 @@ footer {
   );
 }
 
-.productos-form button:hover {
+.detalle-button :hover {
   background-color: red;
 }
 
@@ -687,8 +670,48 @@ footer {
   margin-left: 3rem;
 }
 
+.carrito-actualizar {
+  width: 5.5rem;
+  height: 2rem;
+  margin-top: 2rem;
+  background-color: #45bec7;
+  border-radius: 28px;
+  border: 1px;
+  text-shadow: 0px 1px 0px #2f6627;
+  color: white;
+}
+
+.carrito-actualizar:hover {
+  background-color: #389ca3;
+}
+
+.carrito-quitar {
+  width: 5.5rem;
+  height: 2rem;
+  margin-top: 1rem;
+  background-color: #c74545;
+  border-radius: 28px;
+  border: 1px;
+}
+
+.carrito-quitar:hover {
+  background-color: #9c3636;
+}
+
+.carrito-quitar a {
+  color: white;
+}
+
 .carrito-productos-cantidad {
   background-color: red;
+}
+
+.carrito-precio {
+  width: 100px;
+}
+
+.carrito-total {
+  width: 100px;
 }
 
 .carrito-resumen {
@@ -754,7 +777,7 @@ footer {
   width: 12rem;
   height: 3rem;
   margin: auto;
-  margin-top: 1rem;
+  margin-top: 2rem;
   margin-left: 2rem;
   border: 0;
   border-radius: 20px;
@@ -775,35 +798,57 @@ footer {
   );
 }
 
+.checkout-cupon {
+  position: absolute;
+  margin-top: 5rem;
+  width: 225px;
+  padding: 1rem;
+}
+
+.checkout-cupon button {
+  margin-left: 50px;
+  margin-top: 20px;
+}
+
+.checkout-subtotal {
+  margin-top: 17rem;
+  position: relative;
+  border-radius: 10px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 .carrito-resumen button:hover {
   background-color: red;
 }
 
 .carrito-signup button {
-  width: 5rem;
-  position: absolute;
-  right: 12rem;
-  background: rgb(34, 193, 195);
+  width: 10rem;
+  height: 3rem;
+  margin: auto;
+  margin-top: 2rem;
+  margin-left: 2rem;
+  border: 0;
+  border-radius: 20px;
+  color: white;
   background: linear-gradient(
     90deg,
-    rgba(34, 193, 195, 1) 0%,
-    rgba(253, 187, 45, 0.16850490196078427) 100%
+    rgba(195, 34, 153, 0.8883928571428571) 0%,
+    rgba(253, 187, 45, 0.5158438375350141) 100%
   );
 }
 
-.carrito-login button {
-  width: 5em;
-  position: absolute;
-  background: rgb(195, 34, 153);
-  background: linear-gradient(
-    90deg,
-    rgba(195, 34, 153, 1) 0%,
-    rgba(253, 187, 45, 0.16850490196078427) 100%
-  );
+.carrito-signup button:hover {
+  background-color: red;
 }
 
 .carrito-invitacion {
+  width: 13.7rem;
+  position: absolute;
   font-weight: bold;
+  background-color: transparent;
+  margin-bottom: 5rem;
+  margin-top: 5rem;
 }
 
 .detalle-titulo img {
@@ -861,7 +906,7 @@ footer {
   width: 10rem;
   height: 3rem;
   margin: auto;
-  margin-top: 1rem;
+  margin-top: 2rem;
   margin-left: 2rem;
   border: 0;
   border-radius: 20px;
@@ -880,6 +925,10 @@ footer {
     rgba(195, 34, 34, 0.75) 0%,
     rgba(255, 125, 41, 0.75) 100%
   );
+}
+
+.checkout-ordenar-button input:hover {
+  background-color: red;
 }
 
 .checkout-resumen {
