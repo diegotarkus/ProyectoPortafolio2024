@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load guest_user %}
-
 {% load static %}
 
 {% block title %}
@@ -37,15 +36,20 @@
             <span>$ {{ item.precio|intcomma }}</span>
           </li>
         {% endfor %}
-        
-        <li class="list-group-item active">Total: $ {{ carro.total|intcomma }}</li>
+
+        <div class="checkout-subtotal">
+          <li class="list-group-item active">Subtotal: $ {{ carro.total|intcomma }}</li>
+        </div>
 
         {% if user|is_guest_user %}
-        <div class="col-md-8">
-          <p>Que pena! Usuarios no registrados no pueden aplicar cupones de descuentos</p>
-        </div>  
+          <div class="carrito-invitacion">
+            <p>Únete para guardar tus compras y ganar premios</p>
+            <div class="carrito-signup">
+              <a href="{% url 'registrar' %}"><button class="checkout-unirme">Unirme</button></a>
+            </div>
+          </div>
         {% else %}
-          <div class="col-md-8">
+          <div class="checkout-cupon">
             <p>Usa tu cupón:</p>
             <form action="{% url 'cupones:aplicar' %}" method="post">
               {% csrf_token %}
@@ -54,34 +58,31 @@
             </form>
           </div>
         {% endif %}
-
-  <li class="list-group-item active">Total: $ {{ carro.carro_total | intcomma }}</li>
-  </ul>
-
-  <div class="row">
-      <div>
-          {% if carro.cupon %}
-          <ul>
-            Has utilizado tu cupón!
-              <li> Subtotal: $ {{carro.carro_total | intcomma}}</li>
-              <li> Descuento: $ {{carro.descuento | intcomma }}</li>
-              <li> Total: $ {{carro.total | intcomma }} </li>
-          </ul>
-          {% endif %}
-      </div>                
-  </div>    
+        <li class="list-group-item active checkout-total">Total: $ {{ carro.carro_total|intcomma }}</li>
       </ul>
+
+      <div class="row">
+        <div>
+          {% if carro.cupon %}
+            <ul>
+              Has utilizado tu cupón!<li>Subtotal: $ {{ carro.carro_total|intcomma }}</li>
+              <li>Descuento: $ {{ carro.descuento|intcomma }}</li>
+              <li>Total: $ {{ carro.total|intcomma }}</li>
+            </ul>
+          {% endif %}
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
-    function cuponAlert(){
+    function cuponAlert() {
       Swal.fire({
-        "title": "¡Cupón aplicado!",
-        "text": "Tienes un descuento de {{carro.cupon.desc}}%.",
-        "icon": "success",
-        "confirmButton": "OK"
+        title: '¡Cupón aplicado!',
+        text: 'Tienes un descuento de {{carro.cupon.desc}}%.',
+        icon: 'success',
+        confirmButton: 'OK'
       })
-    };
+    }
   </script>
 {% endblock %}
