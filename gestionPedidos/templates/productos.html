@@ -7,6 +7,15 @@
 {% endblock %}
 
 {% block first_content %}
+<script type="text/javascript">
+  var $ = jQuery.noConflict()
+  function anadir_categorias(url){
+    $('#categorias').load(url, function(){
+        $(this).modal('show');
+    });
+  }
+</script>
+
   <div class="container my-1">
     <div class="row">
       {% if 'OK' in request.GET %}
@@ -46,6 +55,10 @@
 {% block second_content %}
   <div class="container-productos">
     <h1>Listado de productos</h1>
+    <div>
+      <button onclick="anadir_categorias('{% url 'categoria_nuevo' %}')" class="btn btn-info m-2">Agregar categoría</button>
+      <a class="btn btn-secondary" href="{% url 'producto_nuevo' %}">Agregar producto</a>
+    </div>
     <table class="table">
       <thead class="table-dark">
         <tr>
@@ -84,6 +97,10 @@
         {% endfor %}
       </tbody>
     </table>
+  </div>
+
+  <div class="modal fade" id="categorias" role="dialog">
+
   </div>
 
   <script>

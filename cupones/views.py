@@ -9,7 +9,7 @@ from ordenes.models import Orden
 from .forms import CuponForm
 
 @require_POST
-def aplicar_cupon(request, RegularUserRequiredMixin):
+def aplicar_cupon(request):
     now = timezone.now()  
     form = CuponForm(request.POST)
     if form.is_valid():

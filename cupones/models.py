@@ -10,3 +10,5 @@ class Cupon(models.Model):
     def __str__(self):
         return self.codigo
     
+    def desc(self):
+        return self.descuento

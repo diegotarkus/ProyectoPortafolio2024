@@ -37,7 +37,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <h2 class="modal-title">Orden {{o.id}}</h2>
-      <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+      <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">&times;</button>
     </div>
     <div class="modal-body">
       <div class="card" style="width: 18rem;">
@@ -46,18 +46,26 @@
           <p class="card-text">
             Nombre: {{orden.nombre}} {{orden.apellido}}
             Dirección: {{orden.direccion}}, {{orden.comuna}}, {{orden.ciudad}}
+            <br>
             Telefono: {{orden.telefono}}
             <br>
             Comentario: {%if orden.comentario%} {{orden.comentario }} {% else %} No hay comentario. {% endif %}
             <h6>Productos:</h6>
             {% for i in items %}
                 {{i.producto}} x {{i.cantidad}} -- {{i.precio | intcomma }}
-            {% endfor %}    
-          </p>
+            {% endfor %}
+            <br>
             
+            {% if orden.cupon %}
+            Subtotal: $ {{orden.subtotal | intcomma}}
+            <br>
+            Descuento: $ {{orden.descuento | intcomma }}
+            {% endif %}
+            <br>            
             Total del pedido: $ {{orden.total_oc | intcomma }}
             <br>
-            Estado: <strong>{{orden.estado}}</strong>
+            Estado: <strong>{{orden.estado}}</strong> 
+          </p>
         </div>
       </div>
     </div>

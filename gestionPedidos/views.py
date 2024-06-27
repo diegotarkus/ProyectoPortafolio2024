@@ -8,20 +8,14 @@ from .forms import *
 @staff_member_required
 def categoria_nuevo(request):
     if request.method == 'POST':
-        form = CategoriaList(request.POST, request.FILES)
+        form = CategoriaList(request.POST)
         if form.is_valid():
             nombre = form.cleaned_data.get('nombre')
-            print(nombre)
-            obj = Categoria.objects.create(
-                nombre = nombre
-            )
-            
-            obj.save()
-            print("guardado")
-            return redirect(reverse('productos'))
+            cat = Categoria.objects.create(nombre = nombre)            
+            cat.save()
+            return redirect(reverse('producto_nuevo'))
         else:
-            return redirect(reverse('#'))
-            print("no se guardo")
+            return redirect(reverse('productos'))
     else:
         form = CategoriaList
     return render(request, 'categoria_nuevo.html', {'form' : form})

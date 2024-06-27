@@ -50,7 +50,7 @@
             <form action="{% url 'cupones:aplicar' %}" method="post">
               {% csrf_token %}
               {{ cuponform }}
-              <input class="btn btn-success" type="submit" value="Aplicar">
+              <button onclick="cuponAlert()" class="btn btn-success" type="submit">Aplicar</button>
             </form>
           </div>
         {% endif %}
@@ -73,4 +73,15 @@
       </ul>
     </div>
   </div>
+
+  <script>
+    function cuponAlert(){
+      Swal.fire({
+        "title": "¡Cupón aplicado!",
+        "text": "Tienes un descuento de {{carro.cupon.desc}}%.",
+        "icon": "success",
+        "confirmButton": "OK"
+      })
+    };
+  </script>
 {% endblock %}

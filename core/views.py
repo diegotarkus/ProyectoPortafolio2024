@@ -18,19 +18,38 @@ def root(request):
 
 @allow_guest_user
 def home(request):
-    context = {'productos': Producto.objects.all()}
+    context = {'productos': Producto.objects.all(), 'categoria' : Categoria.objects.all()}
     return render(request, "home.html", context)
 
-def categoria(request, id):
-    id = id.replace('-', ' ')
-    try:
-        categoria = Categoria.objects.get(nombre=id)
-        print("1")
-        productos = Producto.objects.filter(categoria=categoria)
-        print("2")
-        return render(request, 'categoria', {'productos' : productos, 'categoria' : categoria})
-    except:
-        return redirect('home')
+def categoria(request, foo):
+    foo = foo.replace('-', ' ')
+    categoria = Categoria.objects.get(nombre=foo)
+    print(categoria)
+    productos = Producto.objects.filter(categoria=categoria)
+    print(productos)
+    return render(request, 'categoria.html', {'productos' : productos, 'categoria' : categoria })
+
+def contacto(request):
+    if request.method == 'POST':
+        form = ContactoForm(request.POST)
+        if form.is_valid():
+            nombre = form.cleaned_data.get('nombre')
+            apellido = form.cleaned_data.get('apellido')
+            correo = form.cleaned_data.get('correo')
+            mensaje = form.cleaned_data.get('mensaje')
+            obj = Contacto.objects.create(
+                nombre = nombre,
+                apellido = apellido,
+                correo = correo,
+                mensaje = mensaje
+            )
+            obj.save()
+            return redirect(reverse('home')+ '?OK')
+        else:
+            return redirect(reverse('contacto')+ '?FAIL')
+    else:
+        form = ContactoForm
+    return render(request,'contacto.html',{'form':form})
 
 def detalle_producto(request, id_producto):
     producto = get_object_or_404(Producto, id_producto=id_producto)

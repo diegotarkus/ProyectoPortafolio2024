@@ -6,6 +6,7 @@ from django.views.generic import UpdateView
 from django.utils.decorators import method_decorator
 from guest_user.decorators import allow_guest_user
 from .forms import OrdenForm, OrdenFormAdmin
+from cupones.models import Cupon
 from cupones.forms import CuponForm
 from .models import Orden, OrdenItem
 from gestionPedidos.models import Producto
@@ -17,8 +18,13 @@ User = get_user_model()
 def orden_nuevo(request):
     carro = Carro(request)
     usuario = User.objects.get(username=request.user.username)
-    total = carro.carro_total()
-    print(usuario)
+    subtotal = carro.carro_total()
+    total = carro.total()
+    if carro.cupon:
+        cupon = carro.cupon
+        descuento = carro.descuento()
+        desc = Cupon.desc(cupon)
+        print("desc:", desc)
     if request.method == 'POST':
         form = OrdenForm(request.POST)
         if form.is_valid():
@@ -29,6 +35,9 @@ def orden_nuevo(request):
             ciudad = form.cleaned_data.get('ciudad')
             telefono = form.cleaned_data.get('telefono')
             comentario = form.cleaned_data.get('comentario')
+            subtotal = subtotal
+            cupon = cupon
+            descuento = descuento
             total_oc = total
             user = usuario
             orden = Orden.objects.create(
@@ -39,10 +48,12 @@ def orden_nuevo(request):
                 ciudad = ciudad,
                 telefono = telefono,
                 comentario = comentario,
+                subtotal = subtotal,
+                cupon = cupon,
+                descuento = descuento,
                 total_oc = total_oc,
                 user = user
-            )
-            
+            )            
             orden.save()
                      
             for item in carro:
@@ -57,7 +68,8 @@ def orden_nuevo(request):
     else:
         form = OrdenForm()
         cuponform = CuponForm()
-    return render(request, 'checkout.html', {'carro' : carro, 'form' : form, 'cuponform' : CuponForm})
+    context = {'carro' : carro, 'form' : form, 'cuponform' : CuponForm}
+    return render(request, 'checkout.html', context)
 
 @staff_member_required
 def ordenes_lista(request):
@@ -72,32 +84,34 @@ def ordenes_lista(request):
             
     context = {'ordenes' : Orden.objects.all(), 'form' : form}
     return render(request,'admin/ordenlist.html',context)
-
-def estado_update(request, id):
-    orden = Orden.objects.get(id=id)
-    form = OrdenFormAdmin(instance = orden)
-    if request.method == 'POST':
-        form = OrdenFormAdmin(request.POST, instance = orden)
-        if form.is_valid():
-            estado = form.cleaned_data.get('estado')
-            Orden.objects.update(estado=estado)
-            return redirect(reverse('ordenes') + '?UPDATED')
-        else:
-            form = OrdenFormAdmin
-        return redirect(reverse('productos') + '?FAIL')
-    
+   
         
 
 @staff_member_required
 def orden_editar(request, id):
     try:
         orden = Orden.objects.get(id = id)
-        form = OrdenFormAdmin(instance = orden)
-        print("1")
+        ordenForm = OrdenForm(instance = orden)
+        items = OrdenItem.objects.filter(orden=id)
         if request.method == 'POST':
-            print("2")
+            ordenForm = OrdenForm(request.POST, instance = orden)
+            if ordenForm.is_valid():
+                ordenForm.save()
+                return redirect(reverse('ordenes:ordenes_lista') + '?UPDATED')
+            else:
+                return redirect(reverse('ordenes:orden_editar') + id_producto) 
+
+        context = {'orden' : orden, 'ordenForm' : ordenForm, 'items' : items}
+        return render(request,'admin/orden_editar.html', context)
+    except:
+        return redirect(reverse('ordenes:ordenes_lista') + '?NO_EXISTS')
+    
+def orden_estado(request, id):
+    try:
+        orden = Orden.objects.get(id = id)
+        form = OrdenFormAdmin(instance = orden)
+        if request.method == 'POST':
             form = OrdenFormAdmin(request.POST, instance = orden)
-            print("3")
             if form.is_valid():
                 form.save()
                 return redirect(reverse('ordenes:ordenes_lista') + '?UPDATED')
@@ -107,7 +121,7 @@ def orden_editar(request, id):
         context = {'form' : form}
         return render(request,'orden_editar.html', context)
     except:
-        return redirect(reverse('ordenes:ordenes_lista') + '?NO_EXISTS')
+        return redirect(reverse('ordenes:ordenes_lista') + '?NO_EXISTS')    
     
 @staff_member_required   
 def orden_borrar(request, id):

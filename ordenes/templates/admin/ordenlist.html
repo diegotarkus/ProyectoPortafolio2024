@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block first_content %}
+
   <div class="container my-1">
     <div class="row">
       {% if 'OK' in request.GET %}
@@ -52,27 +53,51 @@
           <th>Usuario</th>
           <th>Fecha</th>
           <th>Estado</th>
+          <th>Update</th>
         </tr>
       </thead>
       <tbody>
         {% for o in ordenes %}
           <tr>
-            <td>{{ o.id }}</td>
+            <td><a href="{% url 'ordenes:orden_editar' o.id %}">{{ o.id }}</a></td>
             <td>{{ o.user }}</td>
             <td>{{ o.creada }}</td>
-            <td>
-              <form method="post">{% csrf_token %}
+            <td><strong>{{ o.estado }}</strong></td>
+            <td><form action="{% url 'ordenes:orden_estado' o.id %}" method="post">
+                {% csrf_token %}
               {{ form.as_p }}
               <input type="submit" value="Update">
               </form>
             </td>
             <td>
-              <a class="text-decoration-none" href="#"><span class="text-warning fs-2"><i class="fa-solid fa-pencil"></i></span></a>
-              <a class="text-decoration-none" href="#"><span class="text-danger fs-2"><i class="fa-solid fa-trash"></i></span></a>
+              <a class="accion-eliminar" href="#" onclick="eliminarOrden('{{o.id}}')"><img src="{% static 'img/trash3.svg' %}" /></a>
             </td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
   </div>
+
+  <div class="modal fade" id="orden" role="dialog">
+
+  </div>
+
+  <script>
+    function eliminarOrden(id) {
+      Swal.fire({
+        "title": "¿Borrar orden?",
+        "text": "Esta acción no puede revertirse.",
+        "icon": "warning",
+        "showCancelButton": true,
+        "confirmButtonColor": "red",
+        "cancelButtonText": "No borrar",
+        "confirmButtonText": "Elminar orden",
+        "reverseButtons": true,
+      }).then(function(result) {
+        if (result.isConfirmed) {
+          window.location.href = "/ordenes/admin/borrar/" + id
+        };
+      });
+    };
+  </script>
 {% endblock %}

@@ -46,7 +46,7 @@
         <label for="categoria" class="fw-bold">Categoría:</label>
         <div class="input-group">{{ form.categoria }}</div>
         <p>
-          <button onclick="anadir_categorias('/gestionPedidos/categoria_nuevo')" class="btn btn-info m-2">Agregar categoría</button>
+          <button onclick="anadir_categorias('{% url 'categoria_nuevo' %}')" class="btn btn-info m-2">Agregar categoría</button>
         </p>
       </div>
 

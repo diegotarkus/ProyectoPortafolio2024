@@ -35,7 +35,7 @@
       <form method="post">
         {% csrf_token %} {{ form|crispy }}
         <div class="signup-button">
-          <button type="submit">Unirme</button>
+          <button type="submit" onclick="registroAlert()">Unirme</button>
         </div>
         <div class="signup-already">
           <a href="/login">¿Ya tienes una cuenta?</a>
@@ -43,4 +43,17 @@
       </form>
     </div>
   </div>
+
+  <script>
+    function registroAlert(){
+      Swal.fire({
+        "title": "¡Registrado!",
+        "text": "Redirigiendote a menú de Login...",
+        "icon": "success",
+        "timer": "2000"
+      }).then(function(result) {
+          window.location.href = {% url 'login' %}
+      });
+    };
+  </script>
 {% endblock %}

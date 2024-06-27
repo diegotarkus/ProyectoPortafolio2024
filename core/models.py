@@ -37,7 +37,7 @@ class Contacto(models.Model):
     nombre=models.CharField(max_length=30, verbose_name="nombre")
     apellido=models.CharField(max_length=30, verbose_name="apellido")
     correo=models.EmailField(verbose_name="correo")
-    mensaje = models.CharField(verbose_name='mensaje', max_length=500)
+    mensaje = models.TextField(verbose_name='mensaje', max_length=500)
     creado = models.DateTimeField(verbose_name='creado', auto_now_add=True, null=True, blank=True)
 
     def __str__(self):

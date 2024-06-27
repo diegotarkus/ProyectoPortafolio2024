@@ -7,31 +7,34 @@
 {% block first_content%}{%endblock%}
 
 {% block second_content%}
-<section class="container my-4 bg-secondary">
+<section class="container">
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        {% for p in productos %}
-        <div class="col mx-auto"> 
-            <div class="card h-80 container-items">               
-                <div class="card card-img-top item" style="width: 15rem;">
-                    {% if p.imagen %}
-                        <img class="img-afiche"  src="{{p.imagen.url}}" class="card-img-top p-2" alt="{{p.nombre}}">
-                    {% else %}
-                        <img src="{% static 'img/image_not_found.jpg' %}" class="card-img-top" alt="not found">
-                    {% endif %}
-                    <div class="card-body producto-info">
-                        <p class="card-text text-muted">cod: {{p.id_producto}}</p>
-                        <a href="{{ p.get_absolute_url }}" style="display:block">
-                            {{ p.nombre }}
-                          </a>
-                        <p class="card-text">{{p.descripcion}}</p>
-                        <p class="card-text">Valor: {{p.precio}}</p>
-                    </div>
-                    <div class="card-footer text-center">
-
-                    </div>
-                </div>                
-            </div>                
+      {% for p in productos %}
+        <div class="col mx-auto">
+          <div class="card container-items">
+            <div class="card card-img-top item">
+              {% if p.imagen %}
+                <img class="img-afiche" src="{{ p.imagen.url }}" class="card-img-top p-2" alt="{{ p.nombre }}" />
+              {% else %}
+                <img src="{% static 'img/image_not_found.jpg' %}" class="card-img-top" alt="not found" />
+              {% endif %}
+              <div class="card-body producto-info">
+                <p class="card-text text-muted">cod: {{ p.id_producto }}</p>
+                <p href="">{{ p.nombre }}</p>
+                <p class="card-text">{{ p.descripcion }}</p>
+                {% load humanize %}
+                <p class="card-text card-text-precio">Precio: ${{ p.precio|intcomma }}</p>
+                <div class="agregar">
+                  <a href="{{ p.get_absolute_url }}"><button class="boton-agregar">Ver</button></a>
+                </div>
+              </div>
+              <div></div>
+            </div>
+          </div>
         </div>
-        {% endfor %}
-    </div>    
-</section>
+      {% endfor %}
+    </div>
+  </section>
+</main>
+
+{% endblock %}
