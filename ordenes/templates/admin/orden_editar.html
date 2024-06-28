@@ -7,7 +7,7 @@
 {% block first_content %}{%endblock%}
 
 {% block second_content %}
-    <div class="container">
+    <div class="container-nuevo-producto">
         <div class="row" style="margin-top: 6%">
             <div class="col-md-8">
                 <h4 class="page-header">Editar orden:</h4>
@@ -19,14 +19,16 @@
                 </form>
                 
             </div>
-            <div class="col-md-4">
+            <div class="container-nuevo-producto col-md-4">
                 <div class="page-header">
-                    Tu pedido:
+                    Productos:
                 </div>
                 <ul class="list-group">
                     {% load humanize %}
                     {% for i in items %}
-                        {{i.producto}} ({{i.cantidad}}) -- $ {{i.precio | intcomma }}
+                        {{i.producto}} x ({{i.cantidad}})
+                        <br>
+                        $ {{i.precio | intcomma }}
                         <br>
                     {% endfor %}
                     <br>

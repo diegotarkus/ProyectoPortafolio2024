@@ -21,7 +21,7 @@ class Orden (models.Model):
     ciudad = models.CharField(max_length=50, verbose_name="ciudad")
     telefono = models.CharField(max_length=12, verbose_name="telefono", default=0)
     comentario = models.CharField(max_length=500, verbose_name="comentario", blank=True)
-    cupon = models.ForeignKey(Cupon, verbose_name="cupon", on_delete=models.CASCADE, blank=True, default=False)
+    cupon = models.ForeignKey(Cupon, verbose_name="cupon", on_delete=models.CASCADE, blank=True, null=True, default=False)
     subtotal = models.IntegerField(verbose_name="subtotal")
     descuento = models.IntegerField(verbose_name="descuento", default=0, blank=True)
     total_oc = models.IntegerField(verbose_name="total_oc", default=0)

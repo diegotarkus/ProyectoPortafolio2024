@@ -25,6 +25,10 @@ def orden_nuevo(request):
         descuento = carro.descuento()
         desc = Cupon.desc(cupon)
         print("desc:", desc)
+    else:
+        cupon = None
+        descuento = 0
+        
     if request.method == 'POST':
         form = OrdenForm(request.POST)
         if form.is_valid():

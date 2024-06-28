@@ -13,6 +13,9 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+
+    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
+  
     <title>
       {% block title %}
 
@@ -45,13 +48,15 @@
           <div class="dropdown" id="menu">
             <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Categorías</button>
             <ul class="dropdown-menu">
-              {% for c in categoria %}
-              <li>
-                <a class="dropdown-item" href="{% url 'categoria' c.nombre %}">{{c.nombre}}</a>
-              </li>
-              {% endfor %}
+              <li><a class="dropdown-item" href="{% url 'categoria' 'Hamburguesas' %}">Hamburguesas</a></li>
+              <li><a class="dropdown-item" href="{% url 'categoria' 'Pizzas' %}">Pizzas</a></li>
+              <li><a class="dropdown-item" href="{% url 'categoria' 'Sandwiches' %}">Sandwiches</a></li>
+              <li><a class="dropdown-item" href="{% url 'categoria' 'Papas' %}">Papas</a></li>
+              <li><a class="dropdown-item" href="{% url 'categoria' 'Acompañamientos' %}">Acompañamientos</a></li>
+              <li><a class="dropdown-item" href="{% url 'categoria' 'Refrescos' %}">Refrescos</a></li>
+              <li><a class="dropdown-item" href="{% url 'categoria' 'Helados' %}">Helados</a></li>
             </ul>
-          </div>    
+          </div>  
           <div class="login">
             <a class="nav-link active" aria-current="page" href="/login">Ingresar</a>
           </div>
@@ -59,16 +64,19 @@
             <a class="nav-link active" aria-current="page" href="/registrar">Registrar</a>
           </div>          
         {% else %}
-          <div class="main-usuario">
-            <b>Bienvenido, <span>{{ user.username }}</span></b>
-          </div>
-          <div class="dropdown" id="menu">
+        <div class="main-usuario">
+          <b>Bienvenido, <span>{{ user.username }}</span></b>
+        </div>
+        <div class="dropdown" id="menu">
             <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Categorías</button>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="{% url 'categoria' 'Hamburguesas' %}">Hamburguesas</a></li>
               <li><a class="dropdown-item" href="{% url 'categoria' 'Pizzas' %}">Pizzas</a></li>
+              <li><a class="dropdown-item" href="{% url 'categoria' 'Sandwiches' %}">Sandwiches</a></li>
               <li><a class="dropdown-item" href="{% url 'categoria' 'Papas' %}">Papas</a></li>
-              <li><a class="dropdown-item" href="{% url 'categoria' 'Bebidas' %}">Bebidas</a></li>
+              <li><a class="dropdown-item" href="{% url 'categoria' 'Acompañamientos' %}">Acompañamientos</a></li>
+              <li><a class="dropdown-item" href="{% url 'categoria' 'Refrescos' %}">Refrescos</a></li>
+              <li><a class="dropdown-item" href="{% url 'categoria' 'Helados' %}">Helados</a></li>
             </ul>
           </div>   
           <div class="carrito">

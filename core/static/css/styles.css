@@ -11,7 +11,7 @@ a {
   color: #36454f;
 }
 
-li {
+li{
   list-style: none;
 }
 
@@ -803,42 +803,15 @@ footer {
 }
 
 .checkout-cupon {
-  position: absolute;
-  margin-top: 5rem;
-  width: 225px;
-  padding: 1rem;
+  position: relative;
+  margin-bottom: 20px;
 }
-
-.checkout-cupon button {
-  margin-left: 50px;
-  margin-top: 20px;
-}
-
 .checkout-subtotal {
-  margin-top: 20rem;
+  margin-top: 17rem;
   position: relative;
   border-radius: 10px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-}
-
-.subtotal {
-  background-color: white;
-  padding: 3px;
-  border-radius: 8px;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-
-.total {
-  background-color: white;
-  position: relative;
-  padding: 3px;
-  box-shadow: 20px;
-  border-radius: 8px;
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .carrito-resumen button:hover {
@@ -871,7 +844,8 @@ footer {
   font-weight: bold;
   background-color: transparent;
   margin-bottom: 5rem;
-  margin-top: 5rem;
+  margin-top: 15rem;
+  right: 17rem;
 }
 
 .detalle-titulo img {
@@ -884,7 +858,7 @@ footer {
 
 .container-checkout {
   width: 60%;
-  height: 45rem;
+  height: 55rem;
   display: flex;
   background-color: white;
   margin: auto;
@@ -920,9 +894,10 @@ footer {
 
 .checkout-ordenar-button {
   width: 10rem;
-  bottom: 5rem;
-  left: 30rem;
+  bottom: 2rem;
   position: relative;
+  margin-top: 11rem;
+  margin-left: 32rem;
 }
 
 .checkout-ordenar-button input {
@@ -966,16 +941,6 @@ footer {
   width: auto;
   height: auto;
   margin-bottom: 2rem;
-}
-
-.cupon-listo {
-  width: 200px;
-  position: absolute;
-  bottom: 0;
-}
-
-.cupon-listo ul {
-  font-size: 13px;
 }
 
 /*              Detalle              */
@@ -1134,10 +1099,8 @@ footer {
   box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
 }
 
-.card-contacto {
-  margin: auto;
-}
-
 .card {
-  margin-top: 3rem;
+  margin: auto;
+  margin-top: 2rem;
+  margin-bottom: 4rem;
 }

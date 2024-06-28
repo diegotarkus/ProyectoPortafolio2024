@@ -59,7 +59,7 @@
       <tbody>
         {% for o in ordenes %}
           <tr>
-            <td><a href="{% url 'ordenes:orden_editar' o.id %}">{{ o.id }}</a></td>
+            <td><a class="btn btn-danger btn btn-outline-warning" href="{% url 'ordenes:orden_editar' o.id %}">{{ o.id }}</a></td>
             <td>{{ o.user }}</td>
             <td>{{ o.creada }}</td>
             <td><strong>{{ o.estado }}</strong></td>

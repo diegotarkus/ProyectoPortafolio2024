@@ -5,41 +5,37 @@
   {{ producto.nombre }}
 {% endblock %}
 
-{% block first_content %}{% endblock %}
+{% block first_content %}
+
+{% endblock %}
 {% block second_content %}
-  <div class="row">
-    <div class="col-md-4">
-        {% if producto.imagen %}
-            <img class="img-fluid" src="{{ producto.imagen.url }}" alt="{{producto.nombre}}">
-          {% else %}
-            <img src="{% static 'img/image_not_found.jpg' %}" class="card-img-top" alt="not found">
-        {% endif %}
+  <div class="container-detalle">
+    <div class="detalle-imagen">
+      {% if producto.imagen %}
+        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" />
+      {% else %}
+        <img src="{% static 'img/image_not_found.jpg' %}" alt="not found" />
+      {% endif %}
     </div>
 
-    <div class="col-md-8">
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <h3>{{ producto.nombre }}</h3>
-          <p>
-            <a href="{% url 'categoria' producto.categoria %}">
-              {{ producto.categoria }}
-            </a>
-          </p>
-          {% load humanize %}
-
-          <p style="font-size:20px;color:#d9534f">$ {{ producto.precio | intcomma}}</p>
-
-          <div style="margin-top:20px;">
-            {{ producto.descripcion|linebreaks }}
-          </div>
-
-          <form action="{% url 'carro:carro_mas' producto.id_producto %}" method="post">
-            {% csrf_token %}
-            {{ form }}
-            <input class="btn btn-primary" type="submit" value="Añade al carro">
-          </form>
-        </div>
+    <div class="detalle-panel">
+      <h3>{{ producto.nombre }}</h3>
+      <div class="detalle-categoria">
+        <a href="{% url 'categoria' producto.categoria %}">{{ producto.categoria }}</a>
       </div>
+      {% load humanize %}
+
+      <div class="detalle-precio">
+        <p>$ {{ producto.precio|intcomma }}</p>
+      </div>
+
+      <div class="detalle-descripcion">{{ producto.descripcion|linebreaks }}</div>
+
+      <form class="detalle-form" action="{% url 'carro:carro_mas' producto.id_producto %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button class="detalle-button"><input type="submit" value="Añadir al carrito" /></button>
+      </form>
     </div>
   </div>
 {% endblock %}

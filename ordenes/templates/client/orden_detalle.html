@@ -39,7 +39,7 @@
       <h2 class="modal-title">Orden {{o.id}}</h2>
       <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close">&times;</button>
     </div>
-    <div class="modal-body">
+    <div class="modal-ordenes modal-body">
       <div class="card" style="width: 18rem;">
         <div class="card-body">
           <h5 class="card-title">Orden n° {{orden.id}}</h5>
@@ -70,7 +70,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close">OK</button>
+      <a class="btn btn-primary" type="button" href={% url 'ordenes:ordenes' %}>OK</a>
     </div>
   </div>
 </div>

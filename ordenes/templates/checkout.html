@@ -33,13 +33,21 @@
         {% for item in carro %}
           <li class="list-group-item">
             {{ item.cantidad }} x {{ item.producto.nombre }}
+            <br>
             <span>$ {{ item.precio|intcomma }}</span>
           </li>
         {% endfor %}
 
         <div class="checkout-subtotal">
-          <li class="list-group-item active">Subtotal: $ {{ carro.total|intcomma }}</li>
+          <div class="subtotal">
+            <li>Subtotal: $ {{ carro.carro_total|linebreaksbr|intcomma  }}</li>
+            
+            <li>Descuento: $ {{ carro.descuento|linebreaksbr|intcomma }}</li>
+            <br>
+            <li><strong>Total:  $ {{ carro.total|intcomma}}</strong></li>
+          </div>
         </div>
+        
 
         {% if user|is_guest_user %}
           <div class="carrito-invitacion">
@@ -54,24 +62,18 @@
             <form action="{% url 'cupones:aplicar' %}" method="post">
               {% csrf_token %}
               {{ cuponform }}
-              <button onclick="cuponAlert()" class="btn btn-success" type="submit">Aplicar</button>
+              {% if cuponform.is_valid %}
+                <button onclick="cuponAlert()" class="btn btn-success" type="submit">Aplicar</button>
+              {% else %}
+                <button href="#" class="btn btn-success" type="submit">Aplicar</button>
+              {% endif %}
             </form>
           </div>
         {% endif %}
-        <li class="list-group-item active checkout-total">Total: $ {{ carro.carro_total|intcomma }}</li>
-      </ul>
-
-      <div class="row">
-        <div>
-          {% if carro.cupon %}
-            <ul>
-              Has utilizado tu cupón!<li>Subtotal: $ {{ carro.carro_total|intcomma }}</li>
-              <li>Descuento: $ {{ carro.descuento|intcomma }}</li>
-              <li>Total: $ {{ carro.total|intcomma }}</li>
-            </ul>
-          {% endif %}
+        <div class="total">
+          
         </div>
-      </div>
+      </ul>
     </div>
   </div>
 

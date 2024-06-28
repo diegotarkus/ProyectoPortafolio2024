@@ -63,7 +63,7 @@ class Carro(object):
         
     def descuento(self):
         if self.cupon:
-            return (self.cupon.descuento / Decimal('100')) * self.carro_total()
+            return int((self.cupon.descuento / Decimal('100')) * self.carro_total())
         else:
             return 0
         

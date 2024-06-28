@@ -21,7 +21,8 @@
             <th>Pedido</th>
             <th>Nombre</th>
             <th>Cantidad</th>
-            <th>Precio total</th>
+            <th>Precio</th>
+            <th>Total</th>
           </thead>
           <tbody>
             {% load bootstrap_icons %}
@@ -43,16 +44,16 @@
                   </td>
                   <td>{{ producto.nombre }}</td>
                   <td>
-                    <form action="{% url 'carro:carro_mas' producto.id_producto %}" method="post">
+                    <form class="carrito-form" action="{% url 'carro:carro_mas' producto.id_producto %}" method="post">
                       {% csrf_token %}
                       {{ item.update_cantidad_form.cantidad }}
                       {{ item.update_cantidad_form.update }}
-                      <input type="submit" value="Update" class="btn btn-info">
-                  </form>
-                    <a class="btn btn-danger" href="{% url 'carro:carro_menos' producto.id_producto %}">Quitar</a>
+                      <input type="submit" value="Actualizar" class="carrito-actualizar" />
+                    </form>
+                    <button class="carrito-quitar"><a href="{% url 'carro:carro_menos' producto.id_producto %}">Quitar</a></button>
                   </td>
-                  <td>$ {{ item.precio|intcomma }}</td>
-                  <td>$ {{ item.precio_total|intcomma }}</td>
+                  <td class="carrito-precio">$ {{ item.precio|intcomma }}</td>
+                  <td class="carrito-total">$ {{ item.precio_total|intcomma }}</td>
                 </tr>
               {% endwith %}
             {% endfor %}
@@ -70,17 +71,7 @@
             <option value="saab">Sucursal Puente Alto</option>
           </select>
         </div>
-        {% if user|is_guest_user %}
-          <div class="carrito-invitacion">
-            <p>Únete para guardar tus compras y ganar premios</p>
-          </div>
-          <div class="carrito-signup">
-            <a href="{% url 'registrar' %}"><button>Unirme</button></a>
-          </div>
-          <div class="carrito-login">
-            <a href="{% url 'login' %}"><button>Ingresar</button></a>
-          </div>
-        {% endif %} 
+
         <div class="resumen-total">Total: $ {{ carro.carro_total|intcomma }}</div>
         <a class="resumen-checkout" href="{% url 'ordenes:orden_nuevo' %}"><button>Checkout</button></a>
       </div>
