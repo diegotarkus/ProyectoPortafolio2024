@@ -38,7 +38,9 @@
         {% endfor %}
 
         <div class="checkout-subtotal">
-          <li class="list-group-item active">Subtotal: $ {{ carro.total|intcomma }}</li>
+          <div class="subtotal">
+            <li>Subtotal: $ {{ carro.carro_total|intcomma }}</li>
+          </div>
         </div>
 
         {% if user|is_guest_user %}
@@ -58,16 +60,16 @@
             </form>
           </div>
         {% endif %}
-        <li class="list-group-item active checkout-total">Total: $ {{ carro.carro_total|intcomma }}</li>
+        <div class="total">
+          <li>Total: $ {{ carro.total|intcomma }}</li>
+        </div>
       </ul>
 
-      <div class="row">
+      <div class="cupon-listo">
         <div>
           {% if carro.cupon %}
             <ul>
-              Has utilizado tu cupón!<li>Subtotal: $ {{ carro.carro_total|intcomma }}</li>
-              <li>Descuento: $ {{ carro.descuento|intcomma }}</li>
-              <li>Total: $ {{ carro.total|intcomma }}</li>
+              Has utilizado un cupón!<li>de $ {{ carro.descuento|intcomma }} de descuento</li>
             </ul>
           {% endif %}
         </div>
