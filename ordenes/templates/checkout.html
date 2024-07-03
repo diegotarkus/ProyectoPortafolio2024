@@ -28,49 +28,49 @@
       <div class="checkout-resumen-title">
         <h6>Tu pedido</h6>
       </div>
-      <ul class="list-group">
+      <ul class="checkout-list">
         {% load humanize %}
         {% for item in carro %}
-          <li class="list-group-item">
+          <li>
             {{ item.cantidad }} x {{ item.producto.nombre }}
-            <br>
+            <br />
             <span>$ {{ item.precio|intcomma }}</span>
           </li>
         {% endfor %}
+      </ul>
 
-        <div class="checkout-subtotal">
-          <div class="subtotal">
-            <li>Subtotal: $ {{ carro.carro_total|linebreaksbr|intcomma  }}</li>
-            
-            <li>Descuento: $ {{ carro.descuento|linebreaksbr|intcomma }}</li>
-            <br>
-            <li><strong>Total:  $ {{ carro.total|intcomma}}</strong></li>
+      {% if user|is_guest_user %}
+        <div class="resumen-invitacion">
+          <p>Únete para guardar tus compras y ganar premios</p>
+          <div class="carrito-signup">
+            <a href="{% url 'registrar' %}"><button class="checkout-unirme">Unirme</button></a>
           </div>
         </div>
-        
+      {% else %}
+        <div class="checkout-cupon">
+          <p>Usa tu cupón:</p>
+          <form action="{% url 'cupones:aplicar' %}" method="post">
+            {% csrf_token %}
+            {{ cuponform }}
+            {% if cuponform.is_valid %}
+              <button onclick="cuponAlert()" class="btn btn-success" type="submit">Aplicar</button>
+            {% else %}
+              <button href="#" class="btn btn-success cupon-button" type="submit">Aplicar</button>
+            {% endif %}
+          </form>
+        </div>
+      {% endif %}
 
-        {% if user|is_guest_user %}
-          <div class="carrito-invitacion">
-            <p>Únete para guardar tus compras y ganar premios</p>
-            <div class="carrito-signup">
-              <a href="{% url 'registrar' %}"><button class="checkout-unirme">Unirme</button></a>
-            </div>
-          </div>
-        {% else %}
-          <div class="checkout-cupon">
-            <p>Usa tu cupón:</p>
-            <form action="{% url 'cupones:aplicar' %}" method="post">
-              {% csrf_token %}
-              {{ cuponform }}
-              {% if cuponform.is_valid %}
-                <button onclick="cuponAlert()" class="btn btn-success" type="submit">Aplicar</button>
-              {% else %}
-                <button href="#" class="btn btn-success" type="submit">Aplicar</button>
-              {% endif %}
-            </form>
-          </div>
-        {% endif %}
-      </ul>
+      <div class="checkout-subtotal">
+        <div class="subtotal">
+          <li>Subtotal: $ {{ carro.carro_total|linebreaksbr|intcomma }}</li>
+          <li>Descuento: $ {{ carro.descuento|linebreaksbr|intcomma }}</li>
+          <br />
+          <li>
+            <strong>Total: $ {{ carro.total|intcomma }}</strong>
+          </li>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -80,7 +80,7 @@
         title: '¡Cupón aplicado!',
         text: 'Tienes un descuento de {{carro.cupon.desc}}%.',
         icon: 'success',
-        confirmButton: 'OK'
+        confirmButtonText: 'OK'
       })
     }
   </script>

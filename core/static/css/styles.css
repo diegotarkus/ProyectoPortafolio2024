@@ -773,6 +773,7 @@ footer {
   font-weight: bold;
   font-size: 18px;
   text-align: center;
+
 }
 
 .carrito-resumen button {
@@ -800,7 +801,10 @@ footer {
 
 .checkout-cupon {
   position: relative;
-  margin-bottom: 20px;
+}
+
+.cupon-button {
+  margin-top: 5px;
 }
 
 .checkout-subtotal {
@@ -809,38 +813,40 @@ footer {
   border-radius: 10px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+
+}
+
+
+.carrito-signup button {
+  margin-left: 4rem;
+  font-weight: 0;
+  font-size: 14px;
+  color: #fff;
+  background: linear-gradient(90deg, #0081cc7a 0%, #c500ccc1 100%);
+  padding: 10px 30px;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  border-radius: 50px;
+  transition: 1000ms;
+  transform: translateY(0);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
+
+.carrito-signup button:hover {
+
+  transition: 1000ms;
+  padding: 10px 35px;
+  transform: translateY(-0px);
+  background: linear-gradient(90deg, #0081cc7a 0%, #c500ccc1 100%);
+  color: #ffffff;
+  border: none;
 }
 
 .carrito-resumen button:hover {
   background-color: red;
-}
-
-.carrito-signup button {
-  width: 10rem;
-  height: 3rem;
-  margin: auto;
-  margin-top: 2rem;
-  margin-left: 2rem;
-  border: 0;
-  border-radius: 20px;
-  color: white;
-  background: linear-gradient(90deg,
-      rgba(195, 34, 153, 0.8883928571428571) 0%,
-      rgba(253, 187, 45, 0.5158438375350141) 100%);
-}
-
-.carrito-signup button:hover {
-  background-color: red;
-}
-
-.carrito-invitacion {
-  width: 13.7rem;
-  position: absolute;
-  font-weight: bold;
-  background-color: transparent;
-  margin-bottom: 5rem;
-  margin-top: 15rem;
-  right: 17rem;
 }
 
 .detalle-titulo img {
@@ -860,11 +866,11 @@ footer {
   margin-top: 5rem;
   margin-bottom: 10rem;
   border-radius: 20px;
-  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.15);
 }
 
 .checkout-datos {
-  width: 70%;
+  width: 60%;
   height: auto;
 }
 
@@ -878,20 +884,22 @@ footer {
 
 .checkout-form {
   width: auto;
-  height: 38rem;
-  padding-left: 4.5rem;
+  margin-left: 2.5rem
 }
 
 .checkout-form input {
   width: 25rem;
   height: 3rem;
+  margin-bottom: 20px;
+
 }
+
+
 
 .checkout-ordenar-button {
   width: 10rem;
   bottom: 2rem;
   position: relative;
-  margin-top: 11rem;
   margin-left: 32rem;
 }
 
@@ -934,6 +942,14 @@ footer {
   width: auto;
   height: auto;
   margin-bottom: 2rem;
+}
+
+.checkout-list {
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.05);
+  padding: 5px 2px;
+  margin-bottom: min(25px);
 }
 
 /*              Detalle              */
