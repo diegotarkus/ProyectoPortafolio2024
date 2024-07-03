@@ -38,6 +38,16 @@
           <a href="/">Inicio</a>
         </div>
 
+        <div>
+          <form class='d-flex' method='POST' action="{% url 'busca-ordenes' %}">
+            {% csrf_token %}                  
+            <h5>Revisa tu orden: </h5>
+            <input type="search" class="form-control me-2" placeholder="N° de orden" name="miorden">
+            <button type="submit" class="btn btn-primary">Buscar</button> 
+          </form>
+        </div>
+      
+
         {% if user|is_guest_user %}          
           <div class="carrito">
             <a href="{% url 'carro:detalle_carro' %}">
@@ -67,6 +77,14 @@
         <div class="main-usuario">
           <b>Bienvenido, <span>{{ user.username }}</span></b>
         </div>
+        <div>
+          <form class='d-flex' method='POST' action="{% url 'busca-ordenes' %}">
+            {% csrf_token %}                  
+            <h5>Revisa tu orden: </h5>
+            <input type="search" class="form-control me-2" placeholder="N° de orden" name="miorden">
+            <button type="submit" class="btn btn-primary">Buscar</button> 
+          </form>
+        </div>
         <div class="dropdown" id="menu">
             <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Categorías</button>
             <ul class="dropdown-menu">
@@ -85,10 +103,22 @@
               Carrito
             </a>
           </div>
-          {%if user.is_authenticated %}
+          {%if user.is_authenticated %} 
+          <div>
+            <form class='d-flex' method='POST' action="{% url 'busca-ordenes' %}">
+              {% csrf_token %}                  
+              <h5>Revisa tu orden: </h5>
+              <input type="search" class="form-control me-2" placeholder="N° de orden" name="miorden">
+              <button type="submit" class="btn btn-primary">Buscar</button> 
+            </form>
+          </div>
           <div class="dropdown" id="menu">
             <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Cuenta</button>
             <ul class="dropdown-menu">
+              <li>
+                
+
+              </li>
               <li>
                 <a class="dropdown-item" href="{% url 'ordenes:ordenes' %}">Mis ordenes</a>
               </li>

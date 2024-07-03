@@ -3,6 +3,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Contacto
+from ordenes.models import Orden
 class RegistroForm(UserCreationForm):
     class Meta:
         model = User
@@ -31,3 +32,4 @@ class ContactoForm(ModelForm):
             'correo' : forms.TextInput(attrs={'class':'form-control'}),
             'mensaje' : forms.TextInput(attrs={'class':'form-control', 'id' : 'mensaje'}),
         }
+    

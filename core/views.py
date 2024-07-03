@@ -18,7 +18,7 @@ def root(request):
 
 @allow_guest_user
 def home(request):
-    context = {'productos': Producto.objects.all(), 'categoria' : Categoria.objects.all()}
+    context = {'productos': Producto.objects.all(), 'categoria' : Categoria.objects.all(), 'orden' : Orden.objects.all()}
     return render(request, "home.html", context)
 
 def categoria(request, foo):
@@ -28,6 +28,15 @@ def categoria(request, foo):
     productos = Producto.objects.filter(categoria=categoria)
     print(productos)
     return render(request, 'categoria.html', {'productos' : productos, 'categoria' : categoria })
+
+def buscaOrdenes(request):
+        miorden = request.POST['miorden']
+        if miorden:
+            orden = Orden.objects.get(id=miorden)
+            items = OrdenItem.objects.filter(orden=miorden)
+            print(miorden, orden, items)
+            return render(request, 'buscaordenes.html', {'miorden' : miorden, 'orden':orden, 'items' : items})
+    
 
 def contacto(request):
     if request.method == 'POST':

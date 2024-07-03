@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Ver tu orden{% endblock %}
+
+
+{% block second_content %}
+    {% if miorden %}
+        {% load humanize %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Orden n° {{orden.id}}</h5>
+                <p class="card-text">
+                    <strong>Nombre: </strong> {{orden.nombre}} {{orden.apellido}}
+                    <strong>Dirección: </strong> {{orden.direccion}}, {{orden.comuna}}, {{orden.ciudad}}
+                    <br>
+                    <strong>Telefono: </strong> {{orden.telefono}}
+                    <br>
+                    <strong>Comentario: </strong> {%if orden.comentario%} {{orden.comentario }} {% else %} No hay comentario. {% endif %}
+                    <h6><strong>Productos:</strong> </h6>
+                    {% for i in items %}
+                        {{i.producto}} x {{i.cantidad}} -- {{i.precio | intcomma }}
+                    {% endfor %}
+                    <br>
+                    {% if orden.cupon %}
+                    Subtotal: $ {{orden.subtotal | intcomma}}
+                    <br>
+                    Descuento: $ {{orden.descuento | intcomma }}
+                    {% endif %}                    
+                    <br>            
+                    Total del pedido: $ {{orden.total_oc | intcomma }}
+                    <br>
+                    Estado: <strong>{{orden.estado}}</strong> 
+                </p>   
+            </div>
+        </div>
+    {% endif %}
+
+
+{% endblock %}
