@@ -4,8 +4,26 @@
 
 {% block title %}Ver tu orden{% endblock %}
 
+{% block first_content %}
+<div class="container my-1">
+    <div class="row">
+      {% if 'NO_EXISTS' in request.GET %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Orden no encontrada.</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endif %}
+{% endblock %}
 
 {% block second_content %}
+    <div>
+        <form class='d-flex' method='POST' action="{% url 'busca-ordenes' %}">
+        {% csrf_token %}                  
+        <h5>Revisa tu orden: </h5>
+        <input type="search" class="form-control me-2" placeholder="N° de orden" name="miorden">
+        <button type="submit" class="btn btn-primary">Buscar</button> 
+        </form>
+    </div>
     {% if miorden %}
         {% load humanize %}
         <div class="card" style="width: 18rem;">

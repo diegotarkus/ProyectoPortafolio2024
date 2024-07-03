@@ -29,13 +29,18 @@ def categoria(request, foo):
     print(productos)
     return render(request, 'categoria.html', {'productos' : productos, 'categoria' : categoria })
 
-def buscaOrdenes(request):
+def busca_ordenes(request):
+    if request.method == 'POST':
         miorden = request.POST['miorden']
-        if miorden:
+        try:
             orden = Orden.objects.get(id=miorden)
             items = OrdenItem.objects.filter(orden=miorden)
             print(miorden, orden, items)
             return render(request, 'buscaordenes.html', {'miorden' : miorden, 'orden':orden, 'items' : items})
+        except:
+            return redirect(reverse('busca-ordenes')+ '?NO_EXISTS')
+    else:
+        return render(request, 'buscaordenes.html')
     
 
 def contacto(request):
