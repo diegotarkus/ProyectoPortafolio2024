@@ -4,6 +4,7 @@
 body {
   background-color: #f5ebdc;
   font-family: "Noto Sans", sans-serif;
+
 }
 
 a {
@@ -11,8 +12,12 @@ a {
   color: #36454f;
 }
 
-li{
+li {
   list-style: none;
+}
+
+main {
+  min-height: 100vh;
 }
 
 /*              BASE              /*
@@ -322,11 +327,9 @@ footer {
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
-  background: linear-gradient(
-    90deg,
-    rgba(195, 34, 34, 0.75) 0%,
-    rgba(255, 125, 41, 0.75) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(195, 34, 34, 0.75) 0%,
+      rgba(255, 125, 41, 0.75) 100%);
 }
 
 .agregar :hover {
@@ -401,11 +404,9 @@ footer {
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
-  background: linear-gradient(
-    90deg,
-    rgba(195, 34, 34, 0.75) 0%,
-    rgba(255, 125, 41, 0.75) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(195, 34, 34, 0.75) 0%,
+      rgba(255, 125, 41, 0.75) 100%);
   position: relative;
   top: 5rem;
 }
@@ -532,11 +533,9 @@ footer {
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
-  background: linear-gradient(
-    90deg,
-    rgba(195, 34, 34, 0.75) 0%,
-    rgba(255, 125, 41, 0.75) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(195, 34, 34, 0.75) 0%,
+      rgba(255, 125, 41, 0.75) 100%);
   position: relative;
   top: 5rem;
 }
@@ -581,6 +580,7 @@ footer {
 .detalle-panel h3 {
   margin-top: 1rem;
 }
+
 .detalle-categoria {
   font-style: italic;
   margin-bottom: 1rem;
@@ -634,11 +634,9 @@ footer {
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
-  background: linear-gradient(
-    90deg,
-    rgba(195, 34, 34, 0.75) 0%,
-    rgba(255, 125, 41, 0.75) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(195, 34, 34, 0.75) 0%,
+      rgba(255, 125, 41, 0.75) 100%);
 }
 
 .detalle-button :hover {
@@ -795,17 +793,16 @@ footer {
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
-  background: linear-gradient(
-    90deg,
-    rgba(195, 34, 34, 0.75) 0%,
-    rgba(255, 125, 41, 0.75) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(195, 34, 34, 0.75) 0%,
+      rgba(255, 125, 41, 0.75) 100%);
 }
 
 .checkout-cupon {
   position: relative;
   margin-bottom: 20px;
 }
+
 .checkout-subtotal {
   margin-top: 17rem;
   position: relative;
@@ -827,11 +824,9 @@ footer {
   border: 0;
   border-radius: 20px;
   color: white;
-  background: linear-gradient(
-    90deg,
-    rgba(195, 34, 153, 0.8883928571428571) 0%,
-    rgba(253, 187, 45, 0.5158438375350141) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(195, 34, 153, 0.8883928571428571) 0%,
+      rgba(253, 187, 45, 0.5158438375350141) 100%);
 }
 
 .carrito-signup button:hover {
@@ -918,11 +913,9 @@ footer {
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
   background: rgb(195, 34, 34);
-  background: linear-gradient(
-    90deg,
-    rgba(195, 34, 34, 0.75) 0%,
-    rgba(255, 125, 41, 0.75) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(195, 34, 34, 0.75) 0%,
+      rgba(255, 125, 41, 0.75) 100%);
 }
 
 .checkout-ordenar-button input:hover {
