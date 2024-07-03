@@ -14,8 +14,8 @@
     <!-- CSS -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
 
-    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
-  
+    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" />
+
     <title>
       {% block title %}
 
@@ -24,7 +24,6 @@
   </head>
 
   <body>
-    
     <!-- Navbar -->
     <nav class="navbar fixed-top">
       <a href="/">
@@ -38,17 +37,7 @@
           <a href="/">Inicio</a>
         </div>
 
-        <div>
-          <form class='d-flex' method='POST' action="{% url 'busca-ordenes' %}">
-            {% csrf_token %}                  
-            <h5>Revisa tu orden: </h5>
-            <input type="search" class="form-control me-2" placeholder="N° de orden" name="miorden">
-            <button type="submit" class="btn btn-primary">Buscar</button> 
-          </form>
-        </div>
-      
-
-        {% if user|is_guest_user %}          
+        {% if user|is_guest_user %}
           <div class="carrito">
             <a href="{% url 'carro:detalle_carro' %}">
               <img src="{% static 'img/cart4.svg' %}" class="carrito-logo" />
@@ -58,76 +47,71 @@
           <div class="dropdown" id="menu">
             <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Categorías</button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'categoria' 'Hamburguesas' %}">Hamburguesas</a></li>
-              <li><a class="dropdown-item" href="{% url 'categoria' 'Pizzas' %}">Pizzas</a></li>
-              <li><a class="dropdown-item" href="{% url 'categoria' 'Sandwiches' %}">Sandwiches</a></li>
-              <li><a class="dropdown-item" href="{% url 'categoria' 'Papas' %}">Papas</a></li>
-              <li><a class="dropdown-item" href="{% url 'categoria' 'Acompañamientos' %}">Acompañamientos</a></li>
-              <li><a class="dropdown-item" href="{% url 'categoria' 'Refrescos' %}">Refrescos</a></li>
-              <li><a class="dropdown-item" href="{% url 'categoria' 'Helados' %}">Helados</a></li>
+              <li>
+                <a class="dropdown-item" href="{% url 'categoria' 'Hamburguesas' %}">Hamburguesas</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'categoria' 'Pizzas' %}">Pizzas</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'categoria' 'Sandwiches' %}">Sandwiches</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'categoria' 'Papas' %}">Papas</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'categoria' 'Acompañamientos' %}">Acompañamientos</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'categoria' 'Refrescos' %}">Refrescos</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'categoria' 'Helados' %}">Helados</a>
+              </li>
             </ul>
-          </div>  
+          </div>
           <div class="login">
             <a class="nav-link active" aria-current="page" href="/login">Ingresar</a>
           </div>
           <div class="signup">
             <a class="nav-link active" aria-current="page" href="/registrar">Registrar</a>
-          </div>          
+          </div>
         {% else %}
-        <div class="main-usuario">
-          <b>Bienvenido, <span>{{ user.username }}</span></b>
-        </div>
-        <div>
-          <form class='d-flex' method='POST' action="{% url 'busca-ordenes' %}">
-            {% csrf_token %}                  
-            <h5>Revisa tu orden: </h5>
-            <input type="search" class="form-control me-2" placeholder="N° de orden" name="miorden">
-            <button type="submit" class="btn btn-primary">Buscar</button> 
-          </form>
-        </div>
-        <div class="dropdown" id="menu">
+          <div class="main-usuario">
+            <b>Bienvenido, <span>{{ user.username }}</span></b>
+          </div>
+          <div class="dropdown" id="menu">
             <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Categorías</button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'categoria' 'Hamburguesas' %}">Hamburguesas</a></li>
-              <li><a class="dropdown-item" href="{% url 'categoria' 'Pizzas' %}">Pizzas</a></li>
-              <li><a class="dropdown-item" href="{% url 'categoria' 'Sandwiches' %}">Sandwiches</a></li>
-              <li><a class="dropdown-item" href="{% url 'categoria' 'Papas' %}">Papas</a></li>
-              <li><a class="dropdown-item" href="{% url 'categoria' 'Acompañamientos' %}">Acompañamientos</a></li>
-              <li><a class="dropdown-item" href="{% url 'categoria' 'Refrescos' %}">Refrescos</a></li>
-              <li><a class="dropdown-item" href="{% url 'categoria' 'Helados' %}">Helados</a></li>
+              <li>
+                <a class="dropdown-item" href="{% url 'categoria' 'Hamburguesas' %}">Hamburguesas</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'categoria' 'Pizzas' %}">Pizzas</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'categoria' 'Sandwiches' %}">Sandwiches</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'categoria' 'Papas' %}">Papas</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'categoria' 'Acompañamientos' %}">Acompañamientos</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'categoria' 'Refrescos' %}">Refrescos</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'categoria' 'Helados' %}">Helados</a>
+              </li>
             </ul>
-          </div>   
+          </div>
           <div class="carrito">
             <a href="{% url 'carro:detalle_carro' %}">
               <img src="{% static 'img/cart4.svg' %}" class="carrito-logo" />
               Carrito
             </a>
           </div>
-          {%if user.is_authenticated %} 
-          <div>
-            <form class='d-flex' method='POST' action="{% url 'busca-ordenes' %}">
-              {% csrf_token %}                  
-              <h5>Revisa tu orden: </h5>
-              <input type="search" class="form-control me-2" placeholder="N° de orden" name="miorden">
-              <button type="submit" class="btn btn-primary">Buscar</button> 
-            </form>
-          </div>
-          <div class="dropdown" id="menu">
-            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Cuenta</button>
-            <ul class="dropdown-menu">
-              <li>
-                
-
-              </li>
-              <li>
-                <a class="dropdown-item" href="{% url 'ordenes:ordenes' %}">Mis ordenes</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a>
-              </li>
-            </ul>
-          </div>
-          {% endif %}
         {% endif %}
 
         {% if user.is_staff %}
@@ -214,5 +198,4 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  
 </html>
