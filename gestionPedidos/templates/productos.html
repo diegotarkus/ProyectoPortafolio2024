@@ -7,14 +7,14 @@
 {% endblock %}
 
 {% block first_content %}
-<script type="text/javascript">
-  var $ = jQuery.noConflict()
-  function anadir_categorias(url){
-    $('#categorias').load(url, function(){
-        $(this).modal('show');
-    });
-  }
-</script>
+  <script type="text/javascript">
+    var $ = jQuery.noConflict()
+    function anadir_categorias(url) {
+      $('#categorias').load(url, function () {
+        $(this).modal('show')
+      })
+    }
+  </script>
 
   <div class="container my-1">
     <div class="row">
@@ -82,7 +82,7 @@
               {% if p.imagen %}
                 <img src="{{ p.imagen.url }}" alt="{{ p.nombre }}" width="150" height="100" />
               {% else %}
-                <img src="{% static 'img/image_not_found.jpg' %}" alt="INF" />
+                <img src="{% static 'img/image_not_found.jpg' %}" alt="INF" width="150" height="100" />
               {% endif %}
             </td>
             <td>{{ p.categoria }}</td>
@@ -90,7 +90,7 @@
               <div class="productos-accion">
                 <a class="accion-editar" href="{% url 'producto_editar' id_producto=p.id_producto %}"><img src="{% static 'img/pencil-square.svg' %}" /></a>
 
-                <a class="accion-eliminar" href="#" onclick="eliminarProducto('{{p.id_producto}}')"><img src="{% static 'img/trash3.svg' %}" /></a>
+                <a class="accion-eliminar" href="#" onclick="eliminarProducto('{{ p.id_producto }}')"><img src="{% static 'img/trash3.svg' %}" /></a>
               </div>
             </td>
           </tr>
@@ -99,28 +99,25 @@
     </table>
   </div>
 
-  <div class="modal fade" id="categorias" role="dialog">
-
-  </div>
+  <div class="modal fade" id="categorias" role="dialog"></div>
 
   <script>
     function eliminarProducto(id_producto) {
       console.log(id_producto)
       Swal.fire({
-        "title": "¿Borrar producto?",
-        "text": "Esta acción no puede revertirse.",
-        "icon": "warning",
-        "showCancelButton": true,
-        "confirmButtonColor": "red",
-        "cancelButtonText": "No borrar",
-        "confirmButtonText": "Elminar producto",
-        "reverseButtons": true,
-      }).then(function(result) {
+        title: '¿Borrar producto?',
+        text: 'Esta acción no puede revertirse.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: 'red',
+        cancelButtonText: 'No borrar',
+        confirmButtonText: 'Elminar producto',
+        reverseButtons: true
+      }).then(function (result) {
         if (result.isConfirmed) {
-          window.location.href = "/gestionPedidos/productos/borrar/" + id_producto
-        };
-      });
-    };
+          window.location.href = '/gestionPedidos/productos/borrar/' + id_producto
+        }
+      })
+    }
   </script>
-  
 {% endblock %}
