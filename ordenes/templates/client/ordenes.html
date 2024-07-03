@@ -1,53 +1,54 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Mis pedidos{% endblock %}
+{% block title %}
+  Mis pedidos
+{% endblock %}
 
-{% block first_content %}{% endblock %}
+{% block first_content %}
 
-{% block second_content%}
+{% endblock %}
 
-<script type="text/javascript">
+{% block second_content %}
+  <script type="text/javascript">
     var $ = jQuery.noConflict()
-    function abrir_orden(url){
-        $('#orden').load(url, function(){
-            $(this).modal('show');
-        });
+    function abrir_orden(url) {
+      $('#orden').load(url, function () {
+        $(this).modal('show')
+      })
     }
-</script>
+  </script>
 
-
-<div class="container-ordenlist">
+  <div class="container-ordenlist">
     <div class="table-responsive">
-        <table class="table">
-            <thead class="table-dark">
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Total</th>
-                    <th scope="col">Estado</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for o in ordenes %}
-                <tr>
-                    <td><button onclick="abrir_orden('{% url 'ordenes:orden_detalle' o.id %}')">{{o.id}}</button></td>
-                    <td>{{o.creada}}</td>
-                    <td>{{o.total_oc}}</td>
-                    <td>{{o.estado}}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+      <table class="table">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Total</th>
+            <th scope="col">Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for o in ordenes %}
+            <tr>
+              <td>
+                <button onclick="abrir_orden('{% url 'ordenes:orden_detalle' o.id %}')">{{ o.id }}</button>
+              </td>
+              <td>{{ o.creada }}</td>
+              <td>{{ o.total_oc }}</td>
+              <td>{{ o.estado }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
-</div>
+  </div>
 
-<div class="modal fade" id="orden" role="dialog">
-
-</div>
-
+  <div class="modal fade" id="orden" role="dialog"></div>
 {% endblock %}
 
 {% block extrajs %}
 
-{% endblock extrajs %}
+{% endblock %}
