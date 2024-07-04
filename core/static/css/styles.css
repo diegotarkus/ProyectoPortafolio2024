@@ -71,7 +71,8 @@ main {
 .carrito :hover,
 .inicio :hover,
 .login :hover,
-.signup :hover {
+.signup :hover,
+.base-seguimiento :hover {
   background-color: #5c261511;
   color: rgba(255, 0, 0, 0.589);
   border-radius: 32px;
