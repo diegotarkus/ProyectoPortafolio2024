@@ -2,58 +2,77 @@
 
 {% load static %}
 
-{% block title %}Ver tu orden{% endblock %}
+{% block title %}
+  Ver tu orden
+{% endblock %}
 
 {% block first_content %}
-<div class="container my-1">
-    <div class="row">
-      {% if 'NO_EXISTS' in request.GET %}
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <strong>Orden no encontrada.</strong>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      {% endif %}
+  <div class="buscador-alerta">
+    {% if 'NO_EXISTS' in request.GET %}
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Orden no encontrada.</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}
 
 {% block second_content %}
-    <div>
-        <form class='d-flex' method='POST' action="{% url 'busca-ordenes' %}">
-        {% csrf_token %}                  
-        <h5>Revisa tu orden: </h5>
-        <input type="search" class="form-control me-2" placeholder="N° de orden" name="miorden">
-        <button type="submit" class="btn btn-primary">Buscar</button> 
-        </form>
-    </div>
+  <div class="container-buscador">
+    <form class="d-flex form-buscador" method="POST" action="{% url 'busca-ordenes' %}">
+      {% csrf_token %}
+      <h5>Revisa tu orden:</h5>
+      <input type="search" class="form-control me-2" placeholder="N° de orden" name="miorden" />
+      <button type="submit" class="btn buscar-button">Buscar</button>
+    </form>
+
     {% if miorden %}
-        {% load humanize %}
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Orden n° {{orden.id}}</h5>
-                <p class="card-text">
-                    <strong>Nombre: </strong> {{orden.nombre}} {{orden.apellido}}
-                    <strong>Dirección: </strong> {{orden.direccion}}, {{orden.comuna}}, {{orden.ciudad}}
-                    <br>
-                    <strong>Telefono: </strong> {{orden.telefono}}
-                    <br>
-                    <strong>Comentario: </strong> {%if orden.comentario%} {{orden.comentario }} {% else %} No hay comentario. {% endif %}
-                    <h6><strong>Productos:</strong> </h6>
-                    {% for i in items %}
-                        {{i.producto}} x {{i.cantidad}} -- {{i.precio | intcomma }}
-                    {% endfor %}
-                    <br>
-                    {% if orden.cupon %}
-                    Subtotal: $ {{orden.subtotal | intcomma}}
-                    <br>
-                    Descuento: $ {{orden.descuento | intcomma }}
-                    {% endif %}                    
-                    <br>            
-                    Total del pedido: $ {{orden.total_oc | intcomma }}
-                    <br>
-                    Estado: <strong>{{orden.estado}}</strong> 
-                </p>   
-            </div>
+      {% load humanize %}
+      <div class="card card-orden">
+        <div class="card-body">
+          <h5 class="card-title">Orden n° {{ orden.id }}</h5>
+          <div class="detalle-orden">
+            <ul>
+              <li>
+                <span>Nombre:</span> {{ orden.nombre }} {{ orden.apellido }}
+              </li>
+              <li>
+                <span>Dirección:</span> {{ orden.direccion }}, {{ orden.comuna }}, {{ orden.ciudad }}
+              </li>
+              <li>
+                <span>Teléfono:</span> {{ orden.telefono }}
+              </li>
+              <li>
+                <span>Comentario:</span>
+                {% if orden.comentario %}
+                  {{ orden.comentario }}
+                {% else %}
+                  No hay comentario.
+                {% endif %}
+              </li>
+              <li>
+                <span>Productos:</span>
+                <br />
+                {% for i in items %}
+                  {{ i.producto }} x {{ i.cantidad }} -- {{ i.precio|intcomma }}
+                {% endfor %}
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-orden">
+            {% if orden.cupon %}
+              Subtotal: $ {{ orden.subtotal|intcomma }}
+              <br />
+              Descuento: $ {{ orden.descuento|intcomma }}
+            {% endif %}
+            <br />
+            Total del pedido: $ {{ orden.total_oc|intcomma }}
+            <br />
+            Estado: <strong>{{ orden.estado }}</strong>
+          </div>
         </div>
+      </div>
     {% endif %}
-
-
+  </div>
 {% endblock %}

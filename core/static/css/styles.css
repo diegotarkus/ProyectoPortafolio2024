@@ -1113,3 +1113,86 @@ footer {
   margin-top: 2rem;
   margin-bottom: 4rem;
 }
+
+
+/*              Buscador Órdenes              */
+
+.container-buscador {
+  width: 70%;
+  margin: auto;
+  margin-top: 2rem;
+  padding: 10px 0px;
+  background-color: rgba(255, 255, 255, 0.705);
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+  border-radius: 8px;
+}
+
+.container-buscador h5 {
+  width: 18rem;
+  font-size: 24px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.form-buscador {
+  width: 97%;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.card-orden {
+  width: 90%;
+  border: none;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+
+}
+
+#card-orden {
+  line-height: 50px;
+}
+
+.buscar-button {
+  font-weight: 0;
+  font-size: 14px;
+  color: #fff;
+  background: linear-gradient(90deg, #0081cc7a 0%, #c500ccc1 100%);
+  padding: 10px 30px;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+  border-radius: 10px;
+  transition: 1000ms;
+  transform: translateY(0);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
+
+.buscar-button:hover {
+  transition: 1000ms;
+  padding: 10px 35px;
+  transform: translateY(-0px);
+  background: linear-gradient(90deg, #0081cc7a 0%, #c500ccc1 100%);
+  color: #ffffff;
+  border: none;
+}
+
+.detalle-orden {
+  width: 100%;
+}
+
+.card-orden ul {
+  max-width: 50%;
+  text-align: start;
+  line-height: 40px;
+}
+
+.card-orden li {
+  text-align: start;
+}
+
+.card-orden span {
+  font-weight: bold;
+  text-align: start;
+}
