@@ -9,37 +9,46 @@
       <div class="col-md-8 col-md-offset-2">
         <h3 class="page-header">Gracias por tu compra.</h3>
         <p>
-          Tu compra se ha realizado satisfactoriamente. El número de tu orden es <strong>{{ orden.id }}</strong>.          
+          Tu compra se ha realizado satisfactoriamente. El número de tu orden es <strong>{{ orden.id }}</strong>.
         </p>
+        <div class="exito-flork">
+          <img class="" src="{% static 'img/flork-love.gif' %}" />
+        </div>
         {% load humanize %}
-        <table class="table table-bordered">
-          <tbody>
-            <tr>
-              <th scope="row">Fecha: </th>
-              <td>{{transaccion.transaction_date}}</td>
-            </tr>
-            <tr>
-              <th scope="row">Número de transacción: </th>
-              <td>{{ transaccion.buy_order }}</td>
-            </tr>
-            <tr>
-              <th scope="row">Número de tarjeta: </th>
-              <td>{{transaccion.card_number}}</td>
-            </tr>
-            <tr>
-              <th scope="row">Cod de autorización: </th>
-              <td>{{transaccion.authorization_code}}</td>
-            </tr>
-            <tr>
-              <th scope="row">Total cancelado: </th>
-              <td>$ {{orden.total_oc | intcomma}}  </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="detalle-transaccion">
+          <div class="detalle-header">
+            <h5>Detalle de transacción</h5>
+          </div>
+          <table class="table table-bordered table-transaccion">
+            <tbody>
+              <tr>
+                <th class="detalle-info" scope="row">Fecha:</th>
+                <td>{{ transaccion.transaction_date }}</td>
+              </tr>
+              <tr>
+                <th class="detalle-info" scope="row">Número de transacción:</th>
+                <td>{{ transaccion.buy_order }}</td>
+              </tr>
+              <tr>
+                <th class="detalle-info" scope="row">Número de tarjeta:</th>
+                <td>{{ transaccion.card_number }}</td>
+              </tr>
+              <tr>
+                <th class="detalle-info" scope="row">Cod. de autorización:</th>
+                <td>{{ transaccion.authorization_code }}</td>
+              </tr>
+              <tr>
+                <th class="detalle-info" scope="row">Total cancelado:</th>
+                <td>$ {{ orden.total_oc|intcomma }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="detalle-aprobado">
+          <img src="{% static 'img/check-symbol.svg' %}" alt="" />
+          <p>Pago Aprobado</p>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="exito-flork">
-    <img class="" src="{% static 'img/flork-love.png' %}" />
   </div>
 {% endblock %}

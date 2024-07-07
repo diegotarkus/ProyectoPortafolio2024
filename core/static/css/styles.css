@@ -17,7 +17,7 @@ li {
 }
 
 main {
-  min-height: 100vh;
+  min-height: 140vh;
 }
 
 /*              BASE              /*
@@ -974,7 +974,7 @@ footer {
   width: 20rem;
   height: 20rem;
   margin: auto;
-  margin-bottom: 11rem;
+  margin-bottom: 4rem;
 }
 
 .exito-flork img {
@@ -1121,10 +1121,10 @@ footer {
 .container-buscador {
   width: 70%;
   margin: auto;
-  margin-top: 2rem;
+  margin-top: 6rem;
   padding: 10px 0px;
   background-color: rgba(255, 255, 255, 0.705);
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 5px 15px;
   border-radius: 8px;
 }
 
@@ -1145,7 +1145,7 @@ footer {
   width: 90%;
   border: none;
   border-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.03) 0px 5px 15px;
 
 }
 
@@ -1196,4 +1196,52 @@ footer {
 .card-orden span {
   font-weight: bold;
   text-align: start;
+}
+
+/*              Detalle transacción              */
+
+.detalle-header {
+  display: flex;
+  width: auto;
+  height: 3rem;
+  text-transform: uppercase;
+  background-color: #DBE9EE;
+  padding-top: 1rem;
+  padding-left: 12rem;
+  border-radius: 8px;
+}
+
+
+.detalle-transaccion {
+  width: auto;
+  height: auto;
+  border-radius: 50;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.05);
+
+}
+
+.table-transaccion {
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.87);
+}
+
+.detalle-info {
+  text-transform: uppercase;
+}
+
+.detalle-aprobado {
+  height: auto;
+  margin-top: 3rem;
+}
+
+.detalle-aprobado p {
+  width: 50%;
+  margin: auto;
+  margin-top: 1rem;
+}
+
+.detalle-aprobado img {
+  height: 18%;
+  width: 18%;
+  filter: drop-shadow(0 0 0.45rem rgb(0, 255, 0));
 }
