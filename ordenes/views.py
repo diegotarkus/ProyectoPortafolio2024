@@ -6,6 +6,7 @@ from django.views.generic import UpdateView
 from django.utils.decorators import method_decorator
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.db import transaction
+from datetime import datetime
 from guest_user.decorators import allow_guest_user
 from .forms import OrdenForm, OrdenFormAdmin
 from cupones.models import Cupon
@@ -189,49 +190,48 @@ def webpay_create(request):
 
 def webpay_retorno(request):
     orden = Orden.objects.latest()
-    print("req: ")
-    print(request)
-    print("token_ws: ")
-    print(request.GET.get('token_ws'))
     token = request.GET.get('token_ws')
-    print(token)
     data = {'token' : token}
     url = "https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.2/transactions/"+token
     headers = header_request_transbank()
-    respuesta = requests.put(url, json=data, headers=headers)
+    respuesta = requests.put(url, json=data, headers=headers)    
     if respuesta.status_code == 200:
         response = respuesta.json()
         vci = response.get('vci')
         status = response.get('status')
+        print(status)
         buy_order = response.get('buy_order')
         session_id = response.get('session_id')
-        card_number = response.get('card_detail')
+        card_detail = response.get('card_detail')
+        card_number = json.dumps([card_detail][0]['card_number']).replace('"', '')
+        print(card_number)
         accounting_date = response.get('accounting_date')
         transaction_date = response.get('transaction_date')
+        #fecha = datetime.strptime(transaction_date, "%m/%d/%Y %H:%M:%S %Z")
+        #print(fecha)
         authorization_code = response.get('authorization_code')
         payment_type_code = response.get('payment_type_code')
         response_code = response.get('response_code')
         installments_number = response.get('installments_number')
         orden = orden
-        transaccion = Transaccion.objects.create(
-            vci = vci,
-            status = status,
-            buy_order = buy_order,
-            session_id= session_id,
-            card_number = card_number,
-            accounting_date = accounting_date,
-            transaction_date = transaction_date,
-            authorization_code = authorization_code,
-            payment_type_code = payment_type_code,
-            response_code = response_code,
-            installments_number = installments_number,
-            orden = orden
-        )
-        print("response: ")
-        print(response)
-        return render(request, 'exito.html', {'orden' : orden, 'respuesta' : respuesta, 'transaccion' : transaccion})
-
-    return render(request, 'exito.html', {'orden' : orden})
+        if status == "AUTHORIZED":
+            transaccion = Transaccion.objects.create(
+                vci = vci,
+                status = status,
+                buy_order = buy_order,
+                session_id= session_id,
+                card_number = card_number,
+                accounting_date = accounting_date,
+                transaction_date = transaction_date,
+                authorization_code = authorization_code,
+                payment_type_code = payment_type_code,
+                response_code = response_code,
+                installments_number = installments_number,
+                orden = orden
+            )
+            return render(request, 'exito.html', {'orden' : orden, 'respuesta' : respuesta, 'transaccion' : transaccion})
+        else:
+            return render(request, 'rechazado.html')
             
 
 @staff_member_required

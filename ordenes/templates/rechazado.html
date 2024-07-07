@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  Error.
+{% endblock %}
+{% block content %}
+  <div class="container-exito">
+    <div class="row-exito">
+      <div class="col-md-8 col-md-offset-2">
+        <h3 class="page-header">Pago rechazado.</h3>
+        <p>
+          Ha ocurrido un error en la transacción. Por favor, intentalo nuevamente.
+        </p>
+        <div class="exito-flork">
+          <img class="" src="{% static 'img/flork-sad2.png' %}" />
+        </div>
+{% endblock %}
