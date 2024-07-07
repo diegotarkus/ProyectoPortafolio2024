@@ -44,7 +44,7 @@
 
       <div class="form-editar">
         <label for="categoria" class="fw-bold">Categoría:</label>
-        <div class="input-group">{{ form.categoria }}</div>
+        <div class="input-group" onchange="test()">{{ form.categoria }}</div>
         <p>
           <button onclick="anadir_categorias('{% url 'categoria_nuevo' %}')" class="btn btn-info m-2">Agregar categoría</button>
         </p>
@@ -71,8 +71,45 @@
   <div class="modal fade" id="categorias" role="dialog">
 
   </div>
+
+  <script>
+    function test(){
+      var textCode = document.getElementById("categoria").value;
+      var code = "";
+      switch(textCode){
+        case "1":
+          code = "HAM_";
+          break;
+        case "4":
+          code = "PIZ_";
+          break;
+        case "5":
+          code = "PAP_";
+          break;
+        case "10":
+          code = "REF_";
+          break;
+        case "11":
+          code = "ACO_";
+          break;
+        case "12":
+          code = "SAN_";
+          break;
+        case "13":
+          code = "HEL_";
+          break;
+        case "14":
+          code = "POL_";
+          break;
+      }
+      document.getElementById("id_id_producto").value = code
+    }
+
+  </script>
 {% endblock %}
 
 {% block extrajs %}
 
 {% endblock extrajs %}
+
+

@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'gestionPedidos',
     'carro',
     'ordenes',
-    'cupones'
+    'cupones',
 ]
 
 AUTHENTICATION_BACKENDS = [

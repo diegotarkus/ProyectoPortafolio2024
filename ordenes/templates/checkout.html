@@ -7,6 +7,20 @@
 {% endblock %}
 
 {% block first_content %}
+{% if 'OK' in request.GET %}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    Cupón <strong>ingresado</strong> satisfactoriamente.
+    Tienes un descuento de {{carro.cupon.desc}}%.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+{% endif %}
+
+{% if 'NO_EXISTS' in request.GET %}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Cupón no válido.</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+{% endif %}
 
 {% endblock %}
 
@@ -16,7 +30,7 @@
       <div class="checkout-title">
         <h2>Checkout</h2>
       </div>
-      <form class="checkout-form" action="." method="post">
+      <form class="checkout-form" method="post" action="{% url 'ordenes:webpay-create' %}">
         {% csrf_token %}
         {{ form }}
         <div class="checkout-ordenar-button">
@@ -53,7 +67,7 @@
             {% csrf_token %}
             {{ cuponform }}
             {% if cuponform.is_valid %}
-              <button onclick="cuponAlert()" class="btn btn-success" type="submit">Aplicar</button>
+              <button onclick="cuponAlert()" class="btn btn-success" id="cupon-form" type="submit">Aplicar</button>
             {% else %}
               <button href="#" class="btn btn-success cupon-button" type="submit">Aplicar</button>
             {% endif %}
@@ -75,11 +89,22 @@
   </div>
 
   <script>
+    $('#cupon-form').on('submit', function(event){
+      event.preventDefault();
+      console.log("form submitted!")
+  });
+
     function cuponAlert() {
+      /*if(estado){
+        //sweet
+      }else{
+        //error
+      }*/
       Swal.fire({
         title: '¡Cupón aplicado!',
         text: 'Tienes un descuento de {{carro.cupon.desc}}%.',
         icon: 'success',
+        timer: 2000,
         confirmButtonText: 'OK'
       })
     }

@@ -10,7 +10,7 @@ User = get_user_model()
 class Orden (models.Model):
     class Estado (models.TextChoices):
         PENDIENTE = "PENDIENTE"
-        EN_PROGRESO = "EN PROGRESO"
+        EN_PREPARACION = "EN PREPARACIÓN"
         COMPLETADA = "COMPLETADA"
         CANCELADA = "CANCELADA"
     
@@ -32,6 +32,7 @@ class Orden (models.Model):
     class Meta:
         verbose_name= "Orden"
         verbose_name_plural = "Ordenes"
+        get_latest_by = "id"
         
     def __str__(self):
         return 'Orden #{}'.format(self.id)
@@ -57,6 +58,30 @@ class OrdenItem (models.Model):
     def total_item(self):
         total_item = self.precio * self.cantidad
         return total_item
+    
+class Transaccion (models.Model):
+    orden = models.ForeignKey(Orden, verbose_name="orden", on_delete=models.CASCADE)
+    vci = models.CharField(max_length=5, verbose_name="VCI")
+    status = models.CharField(max_length=65, verbose_name="status")
+    buy_order = models.CharField(max_length=27, verbose_name="num_trans")
+    session_id = models.CharField(max_length=62, verbose_name="id_session")
+    card_number = models.CharField(verbose_name="num_tarjeta")
+    accounting_date = models.CharField(max_length=4, verbose_name="fecha_auth")
+    transaction_date = models.CharField(verbose_name="fecha_trans", null=True)
+    authorization_code = models.CharField(max_length=7, verbose_name="cod_auth")
+    payment_type_code = models.CharField(max_length=3, verbose_name="tipo_pago")
+    response_code = models.CharField(max_length=3, verbose_name="cod_respuesta")
+    installments_number = models.CharField(max_length=3, verbose_name="num_cuotas")
+    
+    class Meta:
+        verbose_name= "Transacción"
+        verbose_name_plural = "Transacciones"
+        
+    def __str__(self):
+        return (self.accounting_date)
+
+    
+
     
     
 
