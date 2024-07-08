@@ -6,7 +6,6 @@ from django.views.generic import UpdateView
 from django.utils.decorators import method_decorator
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.db import transaction
-from datetime import datetime
 from guest_user.decorators import allow_guest_user
 from .forms import OrdenForm, OrdenFormAdmin
 from cupones.models import Cupon
@@ -17,6 +16,7 @@ from carro.carro import Carro
 import requests
 import random
 import json
+import datetime
 
 User = get_user_model()
 
@@ -204,11 +204,10 @@ def webpay_retorno(request):
         session_id = response.get('session_id')
         card_detail = response.get('card_detail')
         card_number = json.dumps([card_detail][0]['card_number']).replace('"', '')
-        print(card_number)
         accounting_date = response.get('accounting_date')
         transaction_date = response.get('transaction_date')
-        #fecha = datetime.strptime(transaction_date, "%m/%d/%Y %H:%M:%S %Z")
-        #print(fecha)
+        fecha = datetime.datetime.fromisoformat(transaction_date)
+        print(fecha)
         authorization_code = response.get('authorization_code')
         payment_type_code = response.get('payment_type_code')
         response_code = response.get('response_code')
@@ -229,7 +228,7 @@ def webpay_retorno(request):
                 installments_number = installments_number,
                 orden = orden
             )
-            return render(request, 'exito.html', {'orden' : orden, 'respuesta' : respuesta, 'transaccion' : transaccion})
+            return render(request, 'exito.html', {'orden' : orden, 'fecha':fecha, 'respuesta' : respuesta, 'transaccion' : transaccion})
         else:
             return render(request, 'rechazado.html')
             

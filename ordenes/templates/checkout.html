@@ -46,9 +46,8 @@
         {% load humanize %}
         {% for item in carro %}
           <li>
-            {{ item.cantidad }} x {{ item.producto.nombre }}
-            <br />
-            <span>$ {{ item.precio|intcomma }}</span>
+            - {{ item.producto.nombre }} x {{ item.cantidad }} <br>
+            <span>----- $ {{ item.precio|intcomma }}</span>
           </li>
         {% endfor %}
       </ul>

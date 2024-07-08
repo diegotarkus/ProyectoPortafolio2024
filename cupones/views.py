@@ -21,4 +21,4 @@ def aplicar_cupon(request):
             except:
                 request.session['cupon_id'] = None
                 return redirect(reverse('ordenes:orden_nuevo') + '?NO_EXISTS')
-        return redirect(reverse('ordenes:orden_nuevo') + '?OK')
+        return redirect(('ordenes:orden_nuevo') + '?OK')
