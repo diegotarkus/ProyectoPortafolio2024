@@ -1,6 +1,18 @@
 RUT 11.111.111-1
 PASS 123
 
-
 Débito Aprobada
-4051 8842 3993 7763
+    4051 8842 3993 7763
+
+Débito Rechazada
+    5186 0085 4123 3829
+
+Crédito Aprobada
+	4051 8856 0044 6623
+    CVV 123
+    cualquier fecha de expiración
+
+Crédito Rechazada
+    5186 0595 5959 0568
+    CVV 123
+    cualquier fecha de expiración
